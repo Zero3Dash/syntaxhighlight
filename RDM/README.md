@@ -1,6 +1,6 @@
 # Cisco IOS / IOS-XE / NX-OS Syntax Highlighting for Devolutions Remote Desktop Manager
 
-`Cisco-IOS-XE-NXOS-SuperList-RDM.xml` is a single RDM syntax highlighting profile of 163 regex rules for Cisco IOS, IOS-XE and NX-OS terminal output. It was regression-tested against real output from two NX-OS switches, a Catalyst 9300 and an ISR4331.
+`Cisco-IOS-XE-NXOS-SuperList-RDM.xml` is a single RDM syntax highlighting profile of 163 regex rules for Cisco IOS, IOS-XE and NX-OS terminal output. It was regression-tested against real output from two NX-OS switches, a IOS and an IOS-XE devices.
 
 ## Contents
 
