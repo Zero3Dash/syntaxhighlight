@@ -1,6 +1,6 @@
 # Cisco IOS / IOS-XE / NX-OS Syntax Highlighting for Devolutions Remote Desktop Manager
 
-`Cisco-IOS-XE-NXOS-SuperList-RDM.xml` is a single RDM syntax highlighting profile containing 102 regex rules for Cisco IOS, IOS-XE and NX-OS terminal output. It is a merge and rewrite of four SecureCRT keyword lists into RDM's `SyntaxHighlightingProfileList` schema.
+`Cisco-IOS-XE-NXOS-SuperList-RDM.xml` is a single RDM syntax highlighting profile of 163 regex rules for Cisco IOS, IOS-XE and NX-OS terminal output. It was regression-tested against real output from two NX-OS switches, a Catalyst 9300 and an ISR4331.
 
 ## Contents
 
@@ -8,47 +8,54 @@
 | --- | --- |
 | Profile name | `Cisco IOS / IOS-XE / NX-OS Super List` |
 | Profile ID | `b1f5c0ae-3d42-4c19-9a2b-7e0f61d4c8a1` |
-| Rules | 102 |
+| Rules | 163 |
 | Regex flavour | .NET |
-| Case-sensitive rules | 17 (rest rely on inline `(?i)`) |
-| Background | `#000000` on all rules except `01 Destructive commands` (`#3A0000`) |
+| Case-sensitive rules | 61; the other 102 start with an explicit `(?i)` |
+| Tinted backgrounds | 7 rules (listed under Palette); all others `#000000` |
 | Encoding | UTF-8, CRLF |
 
 ## Install
 
-1. Back up the existing profile: export the current syntax highlighting configuration before importing.
-2. In RDM, open the syntax highlighting configuration (Terminal settings for a session or connection type, or **File → Options → Types → Terminal** depending on version).
-3. Import `Cisco-IOS-XE-NXOS-SuperList-RDM.xml`.
-4. Assign the profile `Cisco IOS / IOS-XE / NX-OS Super List` to the relevant sessions, folder, or the default terminal type.
-5. Verify against live output from `show interfaces`, `show ip bgp summary`, `show logging`, `show inventory`.
+1. Export the current syntax highlighting configuration as a backup.
+2. In RDM, open the syntax highlighting configuration (Terminal settings for a session or connection type, or **File → Options → Types → Terminal**, depending on version).
+3. Import `Cisco-IOS-XE-NXOS-SuperList-RDM.xml`. Re-importing replaces the profile with the same ID; other profiles are untouched.
+4. Assign the profile to the relevant sessions, folder or default terminal type.
+5. Delete the two throwaway probe profiles, `RDM Overlap Probe` and `RDM Engine Probe`, if they are still imported.
 
-The file declares one profile only, so importing it does not modify or remove other profiles. Re-importing replaces the profile with the same ID rather than duplicating it.
+## Verified RDM behaviour
 
-## Rule ordering
+These were confirmed in RDM with the two probe profiles rather than assumed:
 
-Rules are named with a two-digit prefix and stored in ascending order, on the assumption that RDM evaluates top-down and the first match wins. Noise suppression is therefore first and broad topology vocabulary is last.
+- **Overlap resolution:** every rule is matched against the raw line on its own. Where matches overlap, the earlier rule's colour wins for each character, and a later rule still colours the characters no earlier rule claimed.
+- **Anchors:** `^` with `(?m)` anchors to the start of each terminal line, and `\s*$` matches at end of line.
+- **Lookbehind:** variable-length lookbehind works; 13 rules depend on it.
+- **Case:** `IsCaseSensitive` is honoured, and a rule with neither the flag nor `(?i)` matches case-insensitively.
+
+Because the earliest rule wins, rules are ordered from most specific to most generic, and the two-digit prefix reflects that order.
+
+## Rule groups
 
 | Prefix | Group | Rules | Purpose |
 | --- | --- | --- | --- |
-| 00 | Noise suppression | 6 | Zero counters, zero rates, `hitcnt=0`, benign substrings such as `no shutdown`, `downstream`, `fallback` |
-| 01 | Destructive and config-changing commands | 3 | `write erase`, `reload`, `format`, `commit replace`, `copy run start`, `no router …` |
-| 02 | Syslog by severity | 7 | `%FACILITY-n-MNEMONIC` split across severity 0–2, 3, 4–5, 6, 7, plus success facilities and adjacency loss |
-| 03 | Non-zero counters and faults | 8 | Leading and trailing error counters, input queue drops, `rxload`/`txload`, reliability, 90 %+ utilisation, PSU/fan/thermal |
-| 04 | Interface and session state | 7 | Administratively down, down states, failure vocabulary, transitional, up/healthy, bundled members, negotiated speed |
-| 05 | Interfaces | 7 | Long names, short names, logical interfaces, IOS-XR `MgmtEth0/RP0/CPU0/0`, NX-OS `eth1/1`, spaced names, console/vty |
-| 06 | Addressing | 6 | IPv4 with mask or port, masks and wildcards, IPv6 with prefix length, MAC (both notations), FC WWN, IS-IS NET |
-| 07 | Identifiers | 6 | VLAN, VRF, AS numbers, route targets and RDs, VNI, Cisco bug IDs and CVEs |
-| 08 | Routing protocols | 9 | BGP, origin codes, OSPF, IS-IS, EIGRP, RIP, static/connected, route metrics, route-code column |
-| 09 | MPLS and overlays | 6 | MPLS/LDP, segment routing, VXLAN EVPN, DMVPN/NHRP/GRE, SD-WAN, OTV/LISP/FabricPath |
-| 10 | FHRP, L2, multicast | 4 | HSRP/VRRP/GLBP, spanning tree, CDP/LLDP/UDLD/LACP, PIM/IGMP/MSDP |
-| 11 | NX-OS platform | 3 | vPC and consistency checks, VDC/FEX/CoPP/features, StackWise/VSS/ISSU |
-| 12 | Security | 6 | Credentials, crypto and VPN, weak crypto and cleartext, AAA, ACLs and filters, non-zero ACL hits |
-| 13 | Services and QoS | 4 | QoS, infrastructure services, transport protocols, NTP sync |
-| 14 | Software and hardware | 7 | Versions, image files, filesystems, serials and PIDs, components, optics, sensor readings |
-| 15 | Time and rates | 3 | Uptime, timestamps, rates and sizes |
-| 16 | Prompts and interaction | 10 | Config/enable/user prompts, hostname, `[confirm]` and `--More--`, progress, comments, descriptions, `% Invalid input`, table headers |
-
-If your RDM build applies the last match instead of the first, reverse the order of `SyntaxHighlightingItem` elements.
+| 00 | Noise suppression | 7 | Zero counters and rates, `hitcnt=0`, benign substrings, config values such as `timeout 60`, `95% idle`, `is not enabled` |
+| 01 | Typed commands | 5 | Destructive commands (red background), config persistence, negations, interface and BGP neighbor shutdown; all anchored to the prompt |
+| 02 | Structure | 4 | Comments and remarks, descriptions, table headers, legend lines; kept neutral so their contents are not coloured as data |
+| 03 | Syslog | 11 | Adjacency up and down, link up, escalated events, success facilities, then severity 0-2, 3, 4-5, 6, 7 |
+| 04 | Counters and faults | 14 | Non-zero error and drop counters, queue drops, load thresholds, reliability, CPU utilisation, environment faults, LOS/LOF, DOM alarm and warning markers, QoS drops |
+| 05 | State | 34 | `ip int brief` and NX-OS status columns, IOS `show interfaces status`, BGP summary and table codes, OSPF, STP, port-channel members, redundancy, ping, traceroute, environment status, speed |
+| 06 | Interfaces | 7 | Long and short names, logical interfaces (including `TLS-VIF`), IOS-XR management, NX-OS slot ports, spaced names, console/vty |
+| 07 | Addressing | 6 | Masks and wildcards, IPv4, FC WWN, IPv6, MAC, IS-IS NET |
+| 08 | Identifiers | 7 | VLAN, VRF, AS numbers, RT/RD, BGP communities, VNI, bug IDs and CVEs |
+| 09 | Routing protocols | 9 | BGP, origin codes, OSPF, IS-IS, EIGRP, RIP, static/connected, metrics, route-code column |
+| 10 | MPLS and overlays | 6 | MPLS/LDP, segment routing, VXLAN EVPN, DMVPN/NHRP/GRE, SD-WAN, OTV/LISP/FabricPath |
+| 11 | FHRP, L2, multicast | 4 | HSRP/VRRP/GLBP, spanning tree, CDP/LLDP/LACP, PIM/IGMP/MSDP |
+| 12 | NX-OS platform | 3 | vPC and dual-active, VDC/FEX/CoPP/features, StackWise/VSS/ISSU |
+| 13 | Security | 9 | Plaintext keys, type 0/7 credentials, MD5 secrets, weak crypto and cleartext (not when negated with `no`), credentials, crypto, AAA, ACLs, ACL hit counts |
+| 14 | Services and QoS | 11 | URLs, QoS, infrastructure services, transport protocols, NTP stratum 16, kiss codes, sys.peer, falseticker, sync state |
+| 15 | Software and hardware | 10 | Versions, filesystems, image files, serial labels and long forms, Cisco serials, components, sensor readings, optics, optics PIDs |
+| 16 | Time and rates | 4 | Unsynced-clock marker, timestamps (ISO, syslog, IOS long form), uptime, rates and sizes |
+| 17 | Prompts and interaction | 8 | Config (amber background), enable, user exec, bootloader, hostname, `[confirm]`/`--More--`, progress, `% Invalid input` |
+| 18 | Generic vocabulary | 4 | Down, failure, transitional and healthy words; last so every specific rule wins |
 
 ## Palette
 
@@ -56,27 +63,31 @@ Designed for a dark terminal background.
 
 | Colour | Meaning |
 | --- | --- |
-| `#FF5555` | Errors, down states, destructive commands, non-zero fault counters |
-| `#F2C55C` | Warnings, transitional states, config persistence, config prompt |
-| `#5CE68A` | Up, established, success, negotiated speed, enable prompt |
+| `#FF5555` | Errors, down states, destructive commands, non-zero fault counters, plaintext or reversible credentials |
+| `#F2C55C` | Warnings, transitional states, config persistence, config prompt, DOM warnings |
+| `#5CE68A` | Up, established, success, forwarding, enable prompt |
+| `#82AAFF` | Interfaces and VLANs |
 | `#66D9EF` | IPv4 and IPv6 addresses |
-| `#FFD75F` | Interfaces and VLANs |
-| `#FFA657` | Routing protocols, VRF, AS, RT/RD, ACLs, vPC, SD-WAN |
+| `#FFA657` | Routing protocols, VRF, AS, RT/RD, communities, ACLs, vPC, SD-WAN, BGP table status codes |
 | `#D19AFF` | MPLS, SR, VXLAN/EVPN, DMVPN, IS-IS, WWN |
 | `#FF79C6` | Multicast |
 | `#FF92D0` | Credentials, crypto, VPN |
 | `#B4A0FF` | Spanning tree, L2 discovery, AAA, QoS, services, NX-OS platform |
-| `#9CDCFE` | Hardware, optics, sensor readings |
-| `#B5CEA8` | Software versions, images, filesystems |
+| `#9CDCFE` | Hardware, serials, optics, sensor readings |
+| `#B5CEA8` | Software versions, images, filesystems, URLs |
 | `#7FD1E8` | Informational syslog, metrics, rates, interactive prompts |
-| `#8A9199` | Neutral detail: MAC, masks, uptime, timestamps, descriptions, headers |
+| `#8A9199` | Neutral detail: MAC, masks, uptime, timestamps, descriptions, headers, legends |
 | `#6E7681` | Suppressed noise and debug syslog |
 | `#5FD7AF` | EIGRP |
-| `#6FA96F` | Config comments and banners |
+| `#6FA96F` | Config comments, remarks and banners |
+
+Tinted backgrounds mark the highest-signal classes, so they do not rely on red versus green alone:
+- **`#3A0000` (red):** destructive commands, severity 0-2 syslog, `ip int brief` protocol down, NX-OS protocol down, STP broken, ping with no replies.
+- **`#3A2E00` (amber):** config mode prompt.
 
 ## Editing
 
-Each rule is a `SyntaxHighlightingItem` with this element order:
+Each rule is a `SyntaxHighlightingItem`:
 
 ```xml
 <SyntaxHighlightingItem>
@@ -88,39 +99,55 @@ Each rule is a `SyntaxHighlightingItem` with this element order:
   <IsCompleteWord>false</IsCompleteWord>
   <IsRegex>true</IsRegex>
   <Keyword>REGEX</Keyword>
-  <Name>05 Interface short names</Name>
-  <TextColorString>#FFD75F</TextColorString>
+  <Name>06 Interface short names</Name>
+  <TextColorString>#82AAFF</TextColorString>
 </SyntaxHighlightingItem>
 ```
 
-Rules:
+Rules for editing:
 
-- `IsCaseSensitive` is omitted when absent; it defaults to false. Rules that must respect case set it to `true` and carry no `(?i)`.
-- Case-insensitive rules carry an explicit leading `(?i)`, which is safe whichever default the engine applies.
-- `(?m)` is required for any pattern anchored with `^` or `$`, since output is matched per line by rule rather than per buffer.
-- Inline flags must appear at the start of the pattern. `(?i)` or `(?m)` mid-pattern is valid .NET but breaks portability with the generator and other engines.
-- `&`, `<` and `>` must be XML-escaped inside `<Keyword>`.
-- A new rule needs a fresh GUID in `ID`; duplicate IDs collide on import.
-- `IsCompleteWord` is false throughout because word boundaries are expressed in the regexes; Cisco output uses `/ . : -` as separators, which most word-boundary implementations treat as delimiters.
+- **Case mode:** every rule uses exactly one case mode. It either sets `IsCaseSensitive` to `true` or starts with `(?i)`.
+- **Anchors:** use `\s*$` or `(?=\s*$)` for end anchors, so a trailing `\r` does not break the match.
+- **Inline flags:** put inline flags at the start of the pattern.
+- **XML:** escape `&`, `<` and `>` inside `<Keyword>`.
+- **IDs:** each rule needs a unique ID. `build.py` derives new IDs from the rule name, so rebuilds keep IDs stable.
+- **Word boundaries:** `IsCompleteWord` is false throughout because boundaries are written into the regexes.
+- **Order:** a new specific rule must sit above any broader rule that could match the same characters.
+
+The profile is generated by `build.py` (it reads the original list at the path in `SRC` and writes to `DST`). Edit `build.py` and rebuild rather than editing the XML by hand; the build asserts unique names and IDs, a single case mode per rule, and that every source rule is carried forward.
+
+## Testing
+
+`regression/` contains:
+
+| File | Purpose |
+| --- | --- |
+| `validate.ps1` | Compiles every rule and runs 183 assertions (expected match or expected no-match) on real and edge-case lines |
+| `regress.ps1` | Applies the whole profile to a corpus using the verified RDM overlap model; writes `annotated.txt` (per line, which rule coloured which characters and which matches were shadowed) and `rule_counts.csv` |
+| `nxos/`, `ios/` | Annotated output, per-rule counts and the corpus for each platform |
+
+Run `pwsh validate.ps1`, then `pwsh regress.ps1 -ProfilePath <xml> -CorpusDir <dir> -OutDir <dir>`.
+
+Current results:
+- all 183 assertions pass
+- no regex timeouts
+- 126 of 163 rules fire on the combined real corpus
+
+The 37 that do not fire cover features absent from these devices: OSPF, IS-IS, EVPN, SD-WAN, BGP neighbours not established, DOM optics, redundancy standby states, and down or broken states that were not present. All 37 are exercised by `validate.ps1`.
+
+The corpora contain unsanitised secrets captured during testing (TACACS, RADIUS and SNMP values). Treat those values as exposed, and do not distribute the corpus archives.
 
 ## Known trade-offs
 
-- Generic vocabulary rules (`04 Failure vocabulary`, `04 Up and healthy states`) match single words anywhere on a line, so they colour prose in banners and MOTDs. The `00` group absorbs the common false positives; extend it rather than narrowing the vocabulary rules.
-- `Active` is treated as healthy (FHRP and chassis semantics). In EIGRP topology output `Active` indicates a route stuck in active state and is not flagged.
-- `04 Down states` matches `(s)`, `(D)`, `(SD)` and `(RD)` for suspended or down port-channel members; these strings also appear in unrelated output.
-- `07 Route targets and RDs` includes a bare `\d+:\d+` alternative, which can match arbitrary colon-separated numbers.
-- `12 Weak crypto and cleartext` flags `md5`, `sha1`, `3des` and `telnet` unconditionally, including inside documentation or capability lists.
-- Multi-line constructs are not supported. Anything spanning a line break (an OSPF database block, a wrapped `description`) is matched only on the line where the pattern completes.
+These were reviewed and kept deliberately:
 
-## Sources merged
-
-- VanDyke `Cisco Words - DkBg.ini` (the list in the supplied `TEST-export.xml` reference).
-- TakeshiTogo `SecureCRT-Cisco-Highlighting`, `Lab Highlights.ini`.
-- janjrukiyavivek `securecrt-network-highlights`, `Network Engineer Ultimate.ini`.
-- feralpacket `securecrt-keyword-highlighting`, `feralpacket2025_phrases.ini`.
-
-SecureCRT semantics that do not carry over: the `[*]Section` comment pseudo-entries (replaced by the `Name` field), the `0000001f` style bitmasks for bold/reverse video, the gray catch-all default-colour rule, and the SecureCRT word-delimiter behaviour that let those lists omit `\b`.
-
-## Validation
-
-The profile parses as XML, every `Keyword` compiles as a regex, and every `Name` is unique. Element names and ordering match the reference export, so the file imports through the same code path.
+- **Syslog severity noise:** colours follow severity. `%ACLLOG-3-ACLLOG_FLOW_INTERVAL` and `%DAEMON-3-SYSTEM_MSG ... dcos_sshd` stay red, and routine `%SSH-5` session notices stay yellow.
+- **ACL actions:** `permit` is green and `deny` is red everywhere, including intentional deny entries.
+- **Non-redundant hardware:** on single-supervisor devices, `show redundancy` shows `Communications = Down  Reason: Failure` and `'DISABLED' state` in red. A line-based rule cannot tell simplex hardware from a failed peer.
+- **Generic words:** the group 18 vocabulary matches single words anywhere, so banners and prose can be coloured (for example `UNAUTHORIZED` in a login banner). Extend group 00 rather than narrowing group 18.
+- **`Active`:** treated as healthy (FHRP, chassis). In EIGRP topology output, a route stuck in active is not flagged.
+- **SVI load:** NX-OS reports `txload 255/255` on some SVIs, so the 80 % load rule shows red there.
+- **Weak-crypto keywords in context:** `deny ... eq telnet` and HSRP `authentication md5` are flagged as weak or cleartext.
+- **Multi-line constructs:** anything wrapped across lines is only matched on the line where the pattern completes. Examples are wrapped IPv6 BGP neighbours (handled), banners after their first line, and wrapped descriptions.
+- **DOM markers:** the `++ + - --` threshold markers are verified only against synthetic lines in Cisco's documented `show interfaces transceiver` format, because no device in the test estate reports DOM.
+- **IOS-XR:** only the management interface name is covered; IOS-XR table layouts (for example the BGP `Spk` column) are not.

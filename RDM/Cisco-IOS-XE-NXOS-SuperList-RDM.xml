@@ -12,7 +12,7 @@
           <ID>44c8b41e-0c86-449b-bea3-8c7d5a3ebac4</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b0+\s+(?:input errors?|output errors?|CRC|runts|giants|throttles|collisions?|late collisions?|interface resets?|output drops?|input drops?|overruns?|underruns?|ignored|babbles|deferred|lost carrier|no carrier|abort|unknown protocol drops|pause (?:input|output)|output buffer failures|output buffers swapped out|packets output|packets input)\b</Keyword>
+          <Keyword>(?i)\b0+\s+(?:input errors?|output errors?|CRC|runts|giants|throttles|collisions?|late collisions?|interface resets?|output drops?|input drops?|overruns?|underruns?|ignored|babbles|deferred|lost carrier|no carrier|abort|unknown protocol drops|pause (?:input|output)|output buffer failures|output buffers swapped out|packets output|packets input|no buffer|short frame|watchdog|bad etype drop|bad proto drop|if down drop|input with dribble|input discards?|output discards?|babbles?|jumbo packets|storm suppression bytes|Rx pause|Tx pause|stomped CRC|frame|overrun|carrier transitions)\b</Keyword>
           <Name>00 Zero counters</Name>
           <TextColorString>#6E7681</TextColorString>
         </SyntaxHighlightingItem>
@@ -23,7 +23,7 @@
           <ID>07422f8c-48e6-4581-8af8-b6df059cb9ea</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:input|output) rate 0 bits/sec\b|\b0 packets/sec\b|\b0 (?:bits|packets|bytes)/sec\b</Keyword>
+          <Keyword>(?i)\b(?:input|output) rate 0 bits/sec\b|\b0 (?:bits|packets|bytes)/sec\b</Keyword>
           <Name>00 Zero rate counters</Name>
           <TextColorString>#6E7681</TextColorString>
         </SyntaxHighlightingItem>
@@ -43,9 +43,10 @@
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
           <ID>047dc46c-48c0-4746-8ceb-5bd093a3fdb4</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>\(hitcnt=0\)</Keyword>
+          <Keyword>\(hitcnt=0\)|\[match=0\]</Keyword>
           <Name>00 ACL hit count zero</Name>
           <TextColorString>#6E7681</TextColorString>
         </SyntaxHighlightingItem>
@@ -72,13 +73,24 @@
           <TextColorString>#6E7681</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>e09bf02e-fa12-54ae-8f18-b7227ca942f9</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:[\w-]+\s+is\s+)?not\s+(?:enabled|supported|configured|set)\b|\bType escape sequence to abort\b|\btimeout-policy\b|\btimeout(?:\s+(?:is|inactive|active))?\s*[=:]?\s*\d[\d:]*\w*|\bidle-time\s+\d+|\b\d+(?:\.\d+)?%\s+idle\b|\bon-(?:failure|success)\b|\bException Logging\b|\bCrash Files\b</Keyword>
+          <Name>00 Benign config values</Name>
+          <TextColorString>#6E7681</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
           <BackColorString>#3A0000</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
           <ID>013125e8-6187-441d-ae38-56cb326e2d84</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:write erase|erase startup-config|erase nvram:|erase flash:|format\s+\w+:|squeeze\s+\w+:|delete\s+/(?:force|recursive)|reload(?:\s+(?:in|at|cancel))?|factory[- ]reset|install (?:remove|deactivate|abort)|request system reboot|commit replace|rollback (?:configuration|running-config)|license smart deregister|clear (?:counters|line|logging|crypto sa|ip bgp|ip ospf process|ip route \*))\b</Keyword>
+          <Keyword>(?im)^\S+?[#&gt;]\s*(?:do\s+)?(?:wr(?:ite)?\s+er(?:ase)?|erase\s+(?:startup-config|nvram:|flash:|/all)|format\s+\S+:|squeeze\s+\S+:|delete\s+(?:/(?:force|recursive)\s+)+\S+|reload\b|factory-reset|install\s+(?:remove|deactivate|abort)|(?:commit|configure)\s+replace|rollback\s+(?:configuration|running-config)|crypto\s+key\s+zeroize|default\s+interface|redundancy\s+force-switchover|system\s+switchover|license\s+smart\s+deregister|clear\s+(?:counters|line|logging|crypto\s+sa|(?:ip\s+)?bgp|ip\s+ospf\s+process|ip\s+route)|debug\s+all|no\s+feature).*</Keyword>
           <Name>01 Destructive commands</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
@@ -89,7 +101,7 @@
           <ID>681f5f0f-7c48-4fca-b714-b661bdc7c70d</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:write memory|write mem\b|copy running-config startup-config|copy startup-config running-config|copy run start|copy start run|boot system|config-register|confreg)\b</Keyword>
+          <Keyword>(?im)^\S+?[#&gt;]\s*(?:do\s+)?(?:wr(?:ite)?(?:\s+mem(?:ory)?)?\s*$|copy\s+\S+\s+(?:start(?:up-config)?|nvram:startup-config|run(?:ning-config)?)\b|boot\s+system|config-register|confreg)|^\s*(?:boot\s+system|config-register)\b</Keyword>
           <Name>01 Config persistence commands</Name>
           <TextColorString>#F2C55C</TextColorString>
         </SyntaxHighlightingItem>
@@ -100,7 +112,7 @@
           <ID>acd7810b-0597-42fd-b4bf-a79b66a5a1eb</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?im)^\s*no\s+(?:router|interface|vlan|feature|ip route|ipv6 route|access-list|route-map|service-policy|switchport|spanning-tree|shutdown)\b</Keyword>
+          <Keyword>(?im)^(?:\S+?\(config[^)]*\)#)?\s*no\s+(?:router|interface|vlan|vrf|feature|ip\s+(?:route|access-list|vrf)|ipv6\s+route|access-list|route-map|service-policy|switchport|spanning-tree|neighbor|network|aaa|username)\b</Keyword>
           <Name>01 Negation of config</Name>
           <TextColorString>#F2C55C</TextColorString>
         </SyntaxHighlightingItem>
@@ -108,12 +120,149 @@
           <BackColorString>#000000</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
+          <ID>371c417c-bae9-5751-8806-51af7d8efb18</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?im)^\S+?\(config-(?:if|if-range|subif)\)#\s*shut(?:d(?:o(?:wn?)?)?)?\s*$</Keyword>
+          <Name>01 Interface shutdown</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>9434a9db-e73f-5a3e-abed-9360d7d9b685</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?im)^\S+?\(config-router[^)]*\)#\s*neighbor\s+\S+\s+shutdown\b</Keyword>
+          <Name>01 BGP neighbor shutdown</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>389c2452-f457-4c9c-9ab0-bd80ad6dcaa8</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?im)^\s*!(?!!+\s*$).*$|\bremark\b.*|^\s*#{2,}.*$</Keyword>
+          <Name>02 Config comments and banners</Name>
+          <TextColorString>#6FA96F</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>b975363b-f582-4b2a-bb84-6525e52fae39</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bdescription:?\s+.*</Keyword>
+          <Name>02 Descriptions</Name>
+          <TextColorString>#8A9199</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>ccc1febd-e835-4367-9c76-6ce9a88fc0f1</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)^\s*(?:Interface\s+IP-Address|Device ID\s+Local Int|Neighbor\s+V\s+AS|Port\s+Name\s+Status|Vlan\s+Mac Address|Mac Address\s+Type|Destination\s+Gateway|Protocol\s+Address\s+Age|Address\s+Age\(min\)|Codes:|Origin codes:|Network\s+Next Hop|H\s+Address\s+Interface|Po\s+Ports|Gateway of last resort|Neighbor ID\s+Pri|VLAN\s+Name\s+Status|Group\s+Port-channel|Interface\s+Status\s+Protocol|Mod\s+Ports|Local Intf|Port\s+Type\s+Mode\s+Status|Capability [Cc]odes:|Port\s+VRF\s+Status|Ethernet\s+VLAN\s+Type|Port-channel\s+VLAN\s+Type|Interface\s+Secondary VLAN|Interface\s+IP Address\s+Interface Status|Interface\s+Role\s+Sts|Interface\s+Grp\s+Prio|[Ii]d\s+Port\s+Status|Name\s+Type\s+Local Value|remote\s+local\s+st|Module\s+Sensor|Fan\s+Model|Supply\s+Model|PFC_COS|Flags:|Status: s-suppressed|Path type:|Status codes:|RPKI validation codes:|Legend:|Mode:|Outgoing interface flags:|Interface\s+Grp\s+Pri\s+P\s+State|Interface\s+Grp\s+Pri\s+Time|Sensor\s+Location\s+State|Sensor List:|Switch\s+FAN\s+Speed|SW\s+PID\s+Serial#|address\s+ref clock\s+st|\* sys\.peer|Local\s+Outgoing\s+Prefix|dst\s+src\s+state|Switch#\s+Role|QoS-Group#|\+\+ : high alarm).*$</Keyword>
+          <Name>02 Table headers</Name>
+          <TextColorString>#8A9199</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>52d0bc1f-65c6-514b-9747-7caa9cf84d01</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)^\s+(?:[A-Za-z*+%&amp;#][A-Za-z0-9]{0,2}|\([A-Z]\))\s+-{1,2}&gt;?\s+\S.*$|^\s{10,}[a-zA-Z] [A-Za-z][\w-]*, [a-zA-Z] .*$|^\s+\([A-Z]\) [A-Z][\w ]*, \(.*$</Keyword>
+          <Name>02 Legend lines</Name>
+          <TextColorString>#8A9199</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>d9090fc4-92ba-5de3-9ebc-4404a2c9e6e2</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)%(?:BGP|OSPF\w*|DUAL|CLNS|ISIS|LDP|PIM)-\d-\w*(?:ADJCH\w*|NBRCH\w*):.*\b(?:down|init)\b|%BFD\w*-\d-\w*_DOWN\b|%BGP-\d-(?:NOTIFICATION|MAXPFX\w*)</Keyword>
+          <Name>03 Adjacency down</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>62391964-adfc-57b0-a92e-8622ead582cd</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)%(?:BGP|OSPF\w*|DUAL|CLNS|ISIS|LDP|PIM)-\d-\w*(?:ADJCH\w*|NBRCH\w*):.*\b(?:up|full)\b|%BFD\w*-\d-\w*_UP\b</Keyword>
+          <Name>03 Adjacency up</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>fb2b0da0-3303-5088-b0c8-8824965e7462</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>%(?:LINK|LINEPROTO)-\d-UPDOWN:.*\bto up\b</Keyword>
+          <Name>03 Link up</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>d8959d62-46b1-5253-bf93-020a02f17204</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>%(?:LINK|LINEPROTO)-\d-UPDOWN:.*\bto down\b|%ETHPORT-\d-IF_DOWN_\w+|%SW_MATM-\d-MACFLAP_NOTIF|%IP-\d-DUPADDR|%PM-\d-ERR_DISABLE|%EC-\d-(?:CANNOT_BUNDLE|L3DONTBNDL)\d*|%CDP-\d-(?:DUPLEX|NATIVE_VLAN)_MISMATCH|%OSPF-\d-(?:ERRRCV|DUP_RTRID\w*)|%BGP-\d-NBR_RESET|%SYS-\d-RELOAD\b</Keyword>
+          <Name>03 Syslog escalated to error</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>e7df91c5-270e-40b8-9210-46caa2ee20f0</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>%(?:AUTHMGR|DOT1X|MAB|SESSION_MGR)-\d-SUCCESS|%SEC_LOGIN-\d-LOGIN_SUCCESS|%RADIUS-\d-RADIUS_ALIVE|%PLATFORM-\d-(?:PS_OK|PS_FANOK|FANMOD_FAN_OK)|%ETH_PORT_CHANNEL-\d-PORT_UP|%ETHPORT-\d-IF_UP|%BFDFSM-\d-BFD_SESS_UP|%STACKMGR-\d-CHASSIS_ADDED|%NIF_MGR-\d-(?:PORT|STACK)_LINK_UP|%IOSXE_OIR-\d-(?:INS|ONLINE)(?:CARD|SPA)</Keyword>
+          <Name>03 Syslog success facilities</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>3273b6e0-4ee1-4e0d-97ab-b9739a7b9af3</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:neighbor Down|adjacency down|peer down|hold(?:ing)? time expired|PEER_LOST)\b</Keyword>
+          <Name>03 Adjacency loss phrases</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#3A0000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
           <ID>036092c5-f743-431a-9921-3a36e6f7a911</ID>
           <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>%[A-Z0-9_]+(?:-[A-Z0-9_]+)*-[0-2]-[A-Z0-9_]+</Keyword>
-          <Name>02 Syslog sev 0-2 emerg/alert/crit</Name>
+          <Name>03 Syslog sev 0-2 emerg/alert/crit</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -125,7 +274,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>%[A-Z0-9_]+(?:-[A-Z0-9_]+)*-3-[A-Z0-9_]+</Keyword>
-          <Name>02 Syslog sev 3 error</Name>
+          <Name>03 Syslog sev 3 error</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -137,7 +286,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>%[A-Z0-9_]+(?:-[A-Z0-9_]+)*-[45]-[A-Z0-9_]+</Keyword>
-          <Name>02 Syslog sev 4-5 warn/notice</Name>
+          <Name>03 Syslog sev 4-5 warn/notice</Name>
           <TextColorString>#F2C55C</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -149,7 +298,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>%[A-Z0-9_]+(?:-[A-Z0-9_]+)*-6-[A-Z0-9_]+</Keyword>
-          <Name>02 Syslog sev 6 info</Name>
+          <Name>03 Syslog sev 6 info</Name>
           <TextColorString>#7FD1E8</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -161,31 +310,8 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>%[A-Z0-9_]+(?:-[A-Z0-9_]+)*-7-[A-Z0-9_]+</Keyword>
-          <Name>02 Syslog sev 7 debug</Name>
+          <Name>03 Syslog sev 7 debug</Name>
           <TextColorString>#6E7681</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>e7df91c5-270e-40b8-9210-46caa2ee20f0</ID>
-          <IsCaseSensitive>true</IsCaseSensitive>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>%(?:AUTHMGR|DOT1X|MAB|SESSION_MGR)-\d-SUCCESS|%SEC_LOGIN-\d-LOGIN_SUCCESS|%RADIUS-\d-RADIUS_ALIVE|%PLATFORM-\d-(?:PS_OK|PS_FANOK|FANMOD_FAN_OK)|%ETH_PORT_CHANNEL-\d-PORT_UP|%ETHPORT-\d-IF_UP|%LINK-\d-CHANGED.*to up|%LINEPROTO-\d-UPDOWN.*to up|%BFDFSM-\d-BFD_SESS_UP|%STACKMGR-\d-CHASSIS_ADDED|%NIF_MGR-\d-(?:PORT|STACK)_LINK_UP|%IOSXE_OIR-\d-(?:INS|ONLINE)(?:CARD|SPA)</Keyword>
-          <Name>02 Syslog success facilities</Name>
-          <TextColorString>#5CE68A</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>3273b6e0-4ee1-4e0d-97ab-b9739a7b9af3</ID>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>(?i)(?:ADJCHANGE|NEIGHBOR_DOWN|NBRCHANGE|neighbor Down|adjacency down|peer down|session closed|hold time expired|BFD_DOWN|BFD_SESS_DESTROYED|PEER_LOST|DUP_RTRID_NBR|MAXPFX)</Keyword>
-          <Name>02 Syslog adjacency loss</Name>
-          <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -194,8 +320,8 @@
           <ID>be87919c-8a6b-4785-8932-3da2d3b63d61</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b[1-9][0-9,]*\s+(?:input errors?|output errors?|CRC|stomped CRC|runts|giants|throttles|collisions?|late collisions?|excess(?:ive)? collisions?|interface resets?|output drops?|input drops?|overruns?|underruns?|ignored|babbles|deferred|lost carrier|no carrier|abort|unknown protocol drops|frame errors?|alignment errors?|FCS errors?|input discards?|output discards?|pause (?:input|output)|symbol errors?|oversize frames?|undersize frames?)\b</Keyword>
-          <Name>03 Non-zero error counters (leading)</Name>
+          <Keyword>(?i)\b[1-9][0-9,]*\s+(?:input errors?|output errors?|CRC|stomped CRC|runts|giants|throttles|collisions?|late collisions?|excess(?:ive)? collisions?|interface resets?|output drops?|input drops?|overruns?|underruns?|ignored|babbles|deferred|lost carrier|no carrier|abort|unknown protocol drops|frame errors?|alignment errors?|FCS errors?|input discards?|output discards?|pause (?:input|output)|symbol errors?|oversize frames?|undersize frames?|no buffer|short frame|watchdog|bad etype drop|bad proto drop|if down drop|input with dribble|input discards?|output discards?|babbles?|jumbo packets|storm suppression bytes|Rx pause|Tx pause|stomped CRC|frame|overrun|carrier transitions)\b</Keyword>
+          <Name>04 Non-zero error counters (leading)</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -206,7 +332,18 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:CRC|input errors?|output errors?|runts|giants|collisions?|drops?|resets?|discards?|failures?|violations?|retransmissions?|timeouts?|errors?)\s*[:=]\s*[1-9][0-9,]*\b</Keyword>
-          <Name>03 Non-zero error counters (trailing)</Name>
+          <Name>04 Non-zero error counters (trailing)</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>5a3b997a-a92a-59ae-994f-071dced9413c</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bdrop(?:ped)?\s+(?:pkts|packets|byts|bytes)\b[^\d\n]*[1-9]\d*</Keyword>
+          <Name>04 Non-zero drop counters</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -217,7 +354,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\bTotal output drops:\s*[1-9][0-9,]*</Keyword>
-          <Name>03 Total output drops</Name>
+          <Name>04 Total output drops</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -225,10 +362,22 @@
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
           <ID>a0e46d0b-a7ff-454a-baa3-baa74bf3feba</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>\b\d+/\d+/[1-9][0-9]*/\d+\s*\(size/max/drops</Keyword>
-          <Name>03 Input queue drops</Name>
+          <Name>04 Input queue drops</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>c9dd7c80-73b1-56d1-bdc3-62464b9cd2ff</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:rx|tx)load\s+(?:20[4-9]|2[1-4]\d|25[0-5])/255</Keyword>
+          <Name>04 Load above 80 percent</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -238,8 +387,8 @@
           <ID>da852a02-2087-496a-8b8f-af1f1413a5f5</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:rx|tx)load\s+(?:[2-9]|[1-9][0-9]{1,2})/255</Keyword>
-          <Name>03 rxload txload above 1</Name>
+          <Keyword>(?i)\b(?:rx|tx)load\s+(?:12[89]|1[3-9]\d|20[0-3])/255</Keyword>
+          <Name>04 Load above 50 percent</Name>
           <TextColorString>#F2C55C</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -249,8 +398,8 @@
           <ID>0a5828c1-6aac-4f60-bb05-f850a3d93da7</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\breliability\s+(?:[1-9][0-9]?|1[0-9]{2}|2[0-4][0-9]|25[0-4])/255</Keyword>
-          <Name>03 Reliability below 255</Name>
+          <Keyword>(?i)\breliability\s+(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-4])/255</Keyword>
+          <Name>04 Reliability below 255</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -260,8 +409,8 @@
           <ID>60f369e7-2786-4dcb-9933-ef031284fee2</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:9[0-9]|100)(?:\.\d+)?%</Keyword>
-          <Name>03 High utilisation</Name>
+          <Keyword>(?i)(?&lt;=\b(?:CPU|utili[sz]ation|usage|busy)\b.*)(?&lt;![\d.])(?:9\d|100)(?:\.\d+)?%</Keyword>
+          <Name>04 High utilisation</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -272,8 +421,149 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:Power Supply|PSU|Fan(?:\s*\d+)?|Sensor|Module)\b.{0,40}?\b(?:fail(?:ed|ure)?|faulty|absent|shutdown|not present|critical)\b|\b(?:thermal|temperature) (?:alarm|shutdown)\b|\bovertemp\b|\boverheat\b</Keyword>
-          <Name>03 Environment faults</Name>
+          <Name>04 Environment faults</Name>
           <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>29f21b8f-f19c-5173-84d1-52405472f038</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\b(?:LOS|LOF)\b</Keyword>
+          <Name>04 Optics LOS LOF</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>76dfc45c-ef85-55c6-8aa4-0b5e8dead0c8</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?&lt;=(?:^|\s)-?\d{1,3}\.\d{1,2}\s{1,3})(?:\+\+|--)(?=\s|$)</Keyword>
+          <Name>04 Optic DOM alarm</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>735810b9-dbe2-584e-8e13-b1b0a5146421</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?&lt;=(?:^|\s)-?\d{1,3}\.\d{1,2}\s{1,3})[+-](?=\s|$)</Keyword>
+          <Name>04 Optic DOM warning</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>c157adb0-f51f-5c5c-bf82-23462e2f464d</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:exceeded|violated)\s+[1-9][\d,]*\s+(?:packets|bytes)\b|\bdrop rate\s+0*[1-9]\d*|\(queue depth/total drops/no-buffer drops\)\s+\d+/[1-9]\d*/\d+|\btotal drops\s+[1-9]\d*</Keyword>
+          <Name>04 QoS drops non-zero</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#3A0000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>affbd92b-b37f-5472-92ef-517dd6a6f0d7</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)(?&lt;=\s)(?:administratively down|down|up)\s+down(?=\s{2,}|\s*$)</Keyword>
+          <Name>05 ip int brief protocol down</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>43536883-1401-55f1-8a5f-1490e68ebd4b</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)(?&lt;=\s)up\s+up(?=\s{2,}|\s*$)</Keyword>
+          <Name>05 ip int brief up up</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#3A0000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>d880fd06-21f7-5efc-a4bd-0adf25026346</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\bprotocol-down/link-(?:up|down)/admin-up\b</Keyword>
+          <Name>05 NX-OS brief protocol down</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>591ed3f0-c960-584c-aede-5689e1097271</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\bprotocol-up/link-up/admin-up\b</Keyword>
+          <Name>05 NX-OS brief all up</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>b7dce254-4427-5568-b959-92f860e19c21</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)(?&lt;=^(?:Eth|Po)\S*\s+\S+\s+eth\s+(?:access|trunk|routed|fabric|pvlan|--)\s+)down\b|(?&lt;=^Vlan\d+\s+\S+\s+)down\b|(?&lt;=^\d+\s+Po\d+\s+)down\*?</Keyword>
+          <Name>05 NX-OS status column down</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>e15b10d8-2872-548f-b036-9ac16b76f015</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)(?&lt;=^(?:Eth|Po)\S*\s+\S+\s+eth\s+(?:access|trunk|routed|fabric|pvlan|--)\s+)up\b|(?&lt;=^Vlan\d+\s+\S+\s+)up\b|(?&lt;=^\d+\s+Po\d+\s+)up\b</Keyword>
+          <Name>05 NX-OS status column up</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>9f08141f-f3a2-50b5-93ec-db29578b32d7</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:disabled|err-disabled|notconnect|suspended|inactive|monitoring)(?=\s+(?:\d+|trunk|routed|unassigned)\s+(?:a-)?(?:auto|full|half))</Keyword>
+          <Name>05 IOS status column down</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>90a5735e-26e8-51f0-a2ba-fab0cd67ea4e</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bconnected(?=\s+(?:\d+|trunk|routed|unassigned)\s+(?:a-)?(?:auto|full|half))</Keyword>
+          <Name>05 IOS status column connected</Name>
+          <TextColorString>#5CE68A</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -283,62 +573,289 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\badministratively down\b|\badmin(?:istratively)?[- ]shut(?:down)?\b</Keyword>
-          <Name>04 Administratively down</Name>
+          <Name>05 Administratively down</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
-          <ID>6cafbdd6-e751-4572-bca9-fc09235ade69</ID>
+          <ID>407f80b1-0809-5860-a5c6-6f95437bb1c5</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:line protocol is down|protocol is down|is down|link down|down/down|up/down|down\(.*?\)|err-?disabled?|errdisable|notconnect(?:ed)?|not connected|disabled|deleted|removed|suspended|\(s\)|\(SD\)|\(RD\)|\(D\)|inactive|unusable|BLK|blocked|dampened)\b</Keyword>
-          <Name>04 Down states</Name>
+          <Keyword>(?i)\b(?:authentication failed|authorization failed|login failed|access denied|permission denied|not permitted|connection refused|timed out|no route|no such)\b</Keyword>
+          <Name>05 Failure phrases</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
-          <ID>c2b04ec0-924e-4322-84c4-e8e869ea9c84</ID>
+          <ID>1206ae01-d5d1-5aa7-9325-08db08e6f949</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:fail(?:s|ed|ing|ure|ures)?|error(?:s)?|invalid|denied|deny|reject(?:ed|s)?|refused|unreachable|unauthori[sz]ed|forbidden|not permitted|access denied|permission denied|authentication failed|login failed|no such|cannot|unable|abort(?:ed)?|exception|traceback|crash(?:ed|info)?|corrupt(?:ed)?|timed out|timeout|missing|offline|no route|bad|drop(?:ped)?|violation)\b</Keyword>
-          <Name>04 Failure vocabulary</Name>
+          <Keyword>(?m)(?&lt;=^\S*\s+4\s+\d+(?:\.\d+)?(?:\s+\d+){5}\s+\S+\s+)(?:Idle|Active|Connect|OpenSent|OpenConfirm)(?:\s*\([^)]*\))?</Keyword>
+          <Name>05 BGP neighbor not established</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
-          <ID>59de5845-323d-4c4d-8571-e6ac5295fe25</ID>
+          <ID>9ead550b-2856-58b4-84d9-32ff4e527cb7</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:init(?:ializing)?|loading|negotiating|waiting|pending|attempt|exstart|exchange|2-?way|listen(?:ing)?|learning|blocking|connect|opensent|openconfirm|idle(?:\s*\(admin\))?|standby|speak|resync(?:ing)?|reload(?:ing)?|booting|synchroni[sz]ing|not synchronized|unsynchronized|half[- ]duplex|a-half|degraded|mismatch(?:ed)?|inconsistent|flapping|deprecated|warning|caution|throttled)\b</Keyword>
-          <Name>04 Transitional states</Name>
-          <TextColorString>#F2C55C</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>41e76696-a1ed-49e1-b13a-38c4e7e0aa61</ID>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:is up|line protocol is up|protocol is up|link up|up/up|connected|forwarding|established|estab|reachable|alive|online|operational|synchronized|enabled|permit(?:ted)?|allowed|success(?:ful|fully)?|succeeded|passed|complete(?:d)?|valid|installed|ready|authorized|authenticated|full[- ]duplex|a-full|\[OK\]|is ok|active|master|primary)\b</Keyword>
-          <Name>04 Up and healthy states</Name>
+          <Keyword>(?m)(?&lt;=^\S*\s+4\s+\d+(?:\.\d+)?(?:\s+\d+){5}\s+\S+\s+)\d+(?=\s*$)</Keyword>
+          <Name>05 BGP neighbor established</Name>
           <TextColorString>#5CE68A</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
-          <ID>18891e64-e5cd-4e8c-915c-3c1e40e91471</ID>
+          <ID>5c1e0dc8-6605-598d-9e89-9a8f4dfe74f8</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>\((?:SU|RU|P|bndl)\)|\bIn-Bndl\b|\btrnk-bndl\b</Keyword>
-          <Name>04 Bundled port-channel members</Name>
+          <Keyword>(?m)^\s?[sdhxSrmb]?(?:\*[&gt;=]?|[&gt;=])(?:\s?[iecalrI])?(?=\s*[\d:a-fA-F])</Keyword>
+          <Name>05 BGP table status codes</Name>
+          <TextColorString>#FFA657</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>8c975a61-17f0-5cdd-8e16-07cb14f09396</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\bFULL/\s*(?:DR|BDR|DROTHER|-)</Keyword>
+          <Name>05 OSPF full adjacency</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>1a96c054-a248-53b4-bb38-6a7dba88600f</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\b2WAY/DROTHER\b</Keyword>
+          <Name>05 OSPF 2-way DROTHER</Name>
+          <TextColorString>#8A9199</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>fd36333c-d182-544a-a7e7-beae6604efed</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\b(?:Altn|Back)\s+BLK\b</Keyword>
+          <Name>05 STP healthy blocking</Name>
+          <TextColorString>#8A9199</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#3A0000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>b66a2acc-b28b-5086-8174-4b3896d1ee1e</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\bBKN\*?|\*(?:ROOT|LOOP|TYPE|PVID|PVST|BA)_Inc\b</Keyword>
+          <Name>05 STP broken</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>6c1c05a3-8f3d-51f8-af2a-dcade953133a</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\bFWD\b</Keyword>
+          <Name>05 STP forwarding</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>d38e6fc1-9aa9-576f-a432-c947d3700d2c</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\b(?:LRN|LIS)\b</Keyword>
+          <Name>05 STP transitional</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>92fb456c-17c9-52da-9a38-94086d21e9ae</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?&lt;=\b(?:Po|Eth|Ethernet|port-channel|Port-channel|Gi|Te|Tw|Twe|Fo|Hu|Fa)\d+(?:/\d+)*)\((?:s|D|SD|RD|I|w)\)</Keyword>
+          <Name>05 Port-channel member down</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>1b39adab-a631-561e-99c6-46c8b671a649</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?&lt;=\b(?:Po|Eth|Ethernet|port-channel|Port-channel|Gi|Te|Tw|Twe|Fo|Hu|Fa)\d+(?:/\d+)*)\(H\)</Keyword>
+          <Name>05 Port-channel hot-standby</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>18891e64-e5cd-4e8c-915c-3c1e40e91471</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?&lt;=\b(?:Po|Eth|Ethernet|port-channel|Port-channel|Gi|Te|Tw|Twe|Fo|Hu|Fa)\d+(?:/\d+)*)\((?:SU|RU|P|bndl)\)|\bIn-Bndl\b|\btrnk-bndl\b</Keyword>
+          <Name>05 Bundled port-channel members</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>48f576dc-ea57-598e-a1cc-2233f75ee205</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bSTANDBY HOT\b</Keyword>
+          <Name>05 Redundancy standby hot</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>5d539b0e-edbb-5b30-959c-a2c6ff23bbe9</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bSTANDBY COLD\b</Keyword>
+          <Name>05 Redundancy standby cold</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>5488b1a5-8902-56ea-a236-a711167584b5</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)^!{2,}\s*$</Keyword>
+          <Name>05 Ping all replies</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#3A0000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>33c3dba6-0ce2-5de8-8a28-10faefe57b68</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)^[.UQM?&amp;]{2,}\s*$</Keyword>
+          <Name>05 Ping no replies</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>d353855e-4937-502b-9608-dc33edcb93ef</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)^(?=.*!)(?=.*[.UQM?&amp;])[!.UQM?&amp;]{2,}\s*$</Keyword>
+          <Name>05 Ping partial replies</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>28046d55-9c5f-522a-a6aa-b50aeac25405</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bSuccess rate is 0 percent|\b100(?:\.0+)?% packet loss</Keyword>
+          <Name>05 Ping success rate zero</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>9098bd69-2742-56f1-8200-c3f9084d3dbf</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bSuccess rate is 100 percent|\b0(?:\.0+)?% packet loss</Keyword>
+          <Name>05 Ping success rate full</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>0827ef2f-5b2d-5d5a-9eac-4123bf1fe0c7</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bSuccess rate is [1-9]\d? percent</Keyword>
+          <Name>05 Ping success rate partial</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>afd3849a-e7a2-50e2-b07a-85500c2584f9</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)(?:\s+\*){3}\s*$</Keyword>
+          <Name>05 Traceroute timeouts</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>1724d022-8ffb-5f7c-9f20-37f27c571243</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?&lt;=\s)(?:BAD|RED|AMBER|Critical|Shutdown|Faulty|FAILED|Failed|Failure|Fail|Absent|NotOk|Not Ok|NOT PRESENT|Not Present)(?=\s{2,}|\s*$)</Keyword>
+          <Name>05 Environment status bad</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>87bf5f54-7ea3-52c0-9cac-ff7f8bde5d85</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?&lt;=\s)(?:GOOD|GREEN|Normal|OK|Ok)(?=\s{2,}|\s*$)</Keyword>
+          <Name>05 Environment status good</Name>
           <TextColorString>#5CE68A</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -348,45 +865,9 @@
           <ID>de972f6f-2be8-4a7c-807a-86e36e3df7f9</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?&lt;![-/.\w])(?:a-)?(?:10|25|40|50|100|200|400|800)G(?:E)?\b|(?&lt;![-/.\w])(?:a-)?(?:2\.5|5)G\b|(?&lt;![-/.\w])a-(?:10|100|1000)\b</Keyword>
-          <Name>04 Interface speed</Name>
+          <Keyword>(?i)(?&lt;![-/.\w])(?:a-)?(?:10|25|40|50|100|200|400|800)G(?:E)?\b|(?&lt;![-/.\w])(?:a-)?(?:2\.5|5)G\b|(?&lt;![-/.\w])a-(?:10|100|1000)\b</Keyword>
+          <Name>05 Interface speed</Name>
           <TextColorString>#5CE68A</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>48ac161f-6414-4ee8-bd73-29055d9380d8</ID>
-          <IsCaseSensitive>true</IsCaseSensitive>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>\b(?:(?:Two|Five|Ten|TwentyFive|Twenty ?Five|Forty|Fifty|Hundred|TwoHundred|FourHundred|EightHundred|App)?(?:Gigabit)?Ethernet|(?:Two|Five|Ten|TwentyFive|Forty|Fifty|Hundred|FourHundred)?GigE|FastEthernet|Serial|POS|ATM|Cellular|Management|MgmtEth|IPStorage|Async|Group-Async|Embedded-Service-Engine|Service-Engine|Crypto-Engine|StackPort|Bluetooth|Overlay|InternalControl|InternalData)\d+(?:/\d+)*(?:[.:]\d+)*\b</Keyword>
-          <Name>05 Interface long names</Name>
-          <TextColorString>#FFD75F</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>1a57fb36-38b1-47e7-b770-3763eb265172</ID>
-          <IsCaseSensitive>true</IsCaseSensitive>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>\b(?:Te|Tw|Twe|TwoG|Fi|Fo|Fou|Hu|FH|TH|EH|TF|Gi|Gig|Fa|Eth|Et|Se|Ce|Ap|Mg|Hun)\d+(?:/\d+)*(?:[.:]\d+)*\b</Keyword>
-          <Name>05 Interface short names</Name>
-          <TextColorString>#FFD75F</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>558a37f2-fd23-46bd-b2aa-ce3d47c09fe0</ID>
-          <IsCaseSensitive>true</IsCaseSensitive>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>\b(?:Port-channel|port-channel|Po|Bundle-Ether|Bundle-POS|BE|Loopback|loopback|Lo|Tunnel|tunnel-(?:ip|ipsec|mte|te|tp)|Tu|Vlan|VLAN|Vl|Dialer|Di|Multilink|Mu|BVI|NVI|nve|Nve|Null|null|mgmt|Virtual-Template|Virtual-Access|VirtualPortGroup|Vi|pseudowire|vfc|LISP|LI|Sdwan-system-intf)\d+(?:[./:]\d+)?\b</Keyword>
-          <Name>05 Logical interfaces</Name>
-          <TextColorString>#FFD75F</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -397,8 +878,44 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>\bMg(?:mtEth)?\d+/(?:RS?P)?[01]/CPU\d+/\d+\b</Keyword>
-          <Name>05 IOS-XR management interface</Name>
-          <TextColorString>#FFD75F</TextColorString>
+          <Name>06 IOS-XR management interface</Name>
+          <TextColorString>#82AAFF</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>48ac161f-6414-4ee8-bd73-29055d9380d8</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\b(?:(?:Two|Five|Ten|TwentyFive|Twenty ?Five|Forty|Fifty|Hundred|TwoHundred|FourHundred|EightHundred|App)?(?:Gigabit)?Ethernet|(?:Two|Five|Ten|TwentyFive|Forty|Fifty|Hundred|TwoHundred|FourHundred)?GigE|FastEthernet|Serial|POS|ATM|Cellular|Management|MgmtEth|IPStorage|Async|Group-Async|Embedded-Service-Engine|Service-Engine|Crypto-Engine|StackPort|Bluetooth|Overlay|InternalControl|InternalData)\d+(?:/\d+)*(?:[.:]\d+)*\b</Keyword>
+          <Name>06 Interface long names</Name>
+          <TextColorString>#82AAFF</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>1a57fb36-38b1-47e7-b770-3763eb265172</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\b(?:Te|Tw|Twe|TwoG|Fi|Fo|Fou|Hu|FH|TH|EH|TF|Gi|Gig|Fa|Eth|Et|Se|Ce|Ap|Mg|Hun)\d+(?:/\d+)*(?:[.:]\d+)*\b</Keyword>
+          <Name>06 Interface short names</Name>
+          <TextColorString>#82AAFF</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>558a37f2-fd23-46bd-b2aa-ce3d47c09fe0</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\b(?:Port-channel|port-channel|Po|Bundle-Ether|Bundle-POS|BE|Loopback|loopback|Lo|Tunnel|tunnel-(?:ip|ipsec|mte|te|tp)|Tu|Vlan|VLAN|Vl|Dialer|Di|Multilink|Mu|BDI|BVI|TLS-VIF|NVI|nve|Nve|Null|null|mgmt|Virtual-Template|Virtual-Access|VirtualPortGroup|Vi|pseudowire|vfc|LISP|LI|Sdwan-system-intf)\d+(?:[./:]\d+)?\b</Keyword>
+          <Name>06 Logical interfaces</Name>
+          <TextColorString>#82AAFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -407,9 +924,9 @@
           <ID>d188df78-7788-42f4-a9f7-58e13b6d5cd0</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>\beth\d+/\d+(?:/\d+)?(?:\.\d+)?\b|\b(?:lc|sup)-eth\d+(?:/\d+)*\b</Keyword>
-          <Name>05 NX-OS slot ports</Name>
-          <TextColorString>#FFD75F</TextColorString>
+          <Keyword>(?i)\beth\d+/\d+(?:/\d+)?(?:\.\d+)?\b|\b(?:lc|sup)-eth\d+(?:/\d+)*\b</Keyword>
+          <Name>06 NX-OS slot ports</Name>
+          <TextColorString>#82AAFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -419,9 +936,9 @@
           <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>\b(?:Eth|Gig|Ser|Ten|Twe|Port|Stack port)\s\d+(?:/\d+)*(?:\.\d+)?\b</Keyword>
-          <Name>05 Interface name with space</Name>
-          <TextColorString>#FFD75F</TextColorString>
+          <Keyword>\b(?:Eth|Gig|Ser|Ten|Twe|Port|Stack port)\s\d+/\d+(?:/\d+)*(?:\.\d+)?\b</Keyword>
+          <Name>06 Interface name with space</Name>
+          <TextColorString>#82AAFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -431,30 +948,43 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:con\s?\d+|vty\s?\d+(?:\s+\d+)?|line vty|line con|aux\s?\d*|console)\b</Keyword>
-          <Name>05 Console and vty lines</Name>
-          <TextColorString>#FFD75F</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>d7086372-32b9-4065-ac74-47e4f4661fde</ID>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>\b(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}(?:/(?:3[0-2]|[12]?\d))?(?::\d{1,5})?\b</Keyword>
-          <Name>06 IPv4 with mask or port</Name>
-          <TextColorString>#66D9EF</TextColorString>
+          <Name>06 Console and vty lines</Name>
+          <TextColorString>#82AAFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
           <ID>324b1d2f-5a26-4b7a-b180-d4845e6cdca4</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>\b(?:255|0)\.(?:255|254|252|248|240|224|192|128|0|\d{1,3})\.(?:\d{1,3})\.(?:\d{1,3})\b</Keyword>
-          <Name>06 IPv4 masks and wildcards</Name>
+          <Keyword>(?&lt;![\d.])(?:255\.255\.255\.(?:255|254|252|248|240|224|192|128|0)|255\.255\.(?:254|252|248|240|224|192|128|0)\.0|255\.(?:254|252|248|240|224|192|128|0)\.0\.0|(?:254|252|248|240|224|192|128)\.0\.0\.0|0\.0\.0\.(?:1|3|7|15|31|63|127|255)|0\.0\.(?:1|3|7|15|31|63|127|255)\.255|0\.(?:1|3|7|15|31|63|127|255)\.255\.255|(?:1|3|7|15|31|63|127)\.255\.255\.255)(?!\.?\d|/)</Keyword>
+          <Name>07 IPv4 masks and wildcards</Name>
           <TextColorString>#8A9199</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>d7086372-32b9-4065-ac74-47e4f4661fde</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?&lt;![\d.])(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}(?:/(?:3[0-2]|[12]?\d))?(?::\d{1,5})?(?!\.?\d)</Keyword>
+          <Name>07 IPv4 with mask or port</Name>
+          <TextColorString>#66D9EF</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>99c36102-6af0-4128-81f2-0656d51d396c</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)(?&lt;![:\w])(?:[0-9a-f]{2}:){7}[0-9a-f]{2}(?![:\w])|\bp?wwn\b</Keyword>
+          <Name>07 Fibre Channel WWN</Name>
+          <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -463,8 +993,8 @@
           <ID>2967d15b-71fe-4e25-9c75-1ba465a49650</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?:(?:[0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}|(?:[0-9A-Fa-f]{1,4}:){1,7}:(?::[0-9A-Fa-f]{1,4}){0,6}|::(?:[0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4}|::(?:[Ff]{4}:)?(?:\d{1,3}\.){3}\d{1,3})(?:/(?:12[0-8]|1[01]\d|\d{1,2}))?</Keyword>
-          <Name>06 IPv6</Name>
+          <Keyword>(?i)(?&lt;![\w:.])(?:(?:[0-9a-f]{1,4}:){7}[0-9a-f]{1,4}|(?:[0-9a-f]{1,4}:){1,7}:|(?:[0-9a-f]{1,4}:){1,6}:[0-9a-f]{1,4}|(?:[0-9a-f]{1,4}:){1,5}(?::[0-9a-f]{1,4}){1,2}|(?:[0-9a-f]{1,4}:){1,4}(?::[0-9a-f]{1,4}){1,3}|(?:[0-9a-f]{1,4}:){1,3}(?::[0-9a-f]{1,4}){1,4}|(?:[0-9a-f]{1,4}:){1,2}(?::[0-9a-f]{1,4}){1,5}|[0-9a-f]{1,4}:(?::[0-9a-f]{1,4}){1,6}|:(?::[0-9a-f]{1,4}){1,7}|::(?=/))(?:/(?:12[0-8]|1[01]\d|\d{1,2}))?(?![\w:])</Keyword>
+          <Name>07 IPv6</Name>
           <TextColorString>#66D9EF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -474,20 +1004,9 @@
           <ID>6c7b77fa-5ea7-4227-852e-f1e156cf613d</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:[0-9a-f]{2}[:-]){5}[0-9a-f]{2}\b|\b[0-9a-f]{4}\.[0-9a-f]{4}\.[0-9a-f]{4}\b|\bSEP[0-9A-F]{12}\b|\bAP(?:[0-9a-f]{4}\.){2}[0-9a-f]{4}\b</Keyword>
-          <Name>06 MAC address</Name>
+          <Keyword>(?i)(?&lt;![:\w-])[0-9a-f]{2}([:-])(?:[0-9a-f]{2}\1){4}[0-9a-f]{2}(?![:\w-])|\b[0-9a-f]{4}\.[0-9a-f]{4}\.[0-9a-f]{4}\b(?!\.\d)|\bSEP[0-9a-f]{12}\b|\bAP(?:[0-9a-f]{4}\.){2}[0-9a-f]{4}\b</Keyword>
+          <Name>07 MAC address</Name>
           <TextColorString>#8A9199</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>99c36102-6af0-4128-81f2-0656d51d396c</ID>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:p?wwn)\b|\b(?:[0-9a-f]{2}:){7}[0-9a-f]{2}\b</Keyword>
-          <Name>06 Fibre Channel WWN</Name>
-          <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -496,8 +1015,8 @@
           <ID>6d3df3c9-fb04-4cd6-b5a7-80514ed0df3b</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>\b\d{2}(?:\.[0-9a-f]{4}){4}\.\d{2}\b|\b(?:[0-9a-f]{4}\.){2}[0-9a-f]{4}\.\d{2}\b|\b49\.[0-9a-f]{4}\b</Keyword>
-          <Name>06 IS-IS NET and system ID</Name>
+          <Keyword>(?i)\b\d{2}(?:\.[0-9a-f]{4}){4,9}\.00\b|\b(?:[0-9a-f]{4}\.){2}[0-9a-f]{4}\.[0-9a-f]{2}(?:-[0-9a-f]{2})?\b|\b49\.[0-9a-f]{4}\b</Keyword>
+          <Name>07 IS-IS NET and system ID</Name>
           <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -507,9 +1026,9 @@
           <ID>eccb2c1b-693a-4eac-85af-ba3cfe301be8</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\bvlan\s?\d{1,4}\b|\bVl\d{1,4}\b|\ballowed vlan(?:s)?\b|\bnative vlan\b</Keyword>
-          <Name>07 VLAN</Name>
-          <TextColorString>#FFD75F</TextColorString>
+          <Keyword>(?i)\bvlan\s?\d{1,4}\b|\ballowed vlans?\b|\bnative vlan\b</Keyword>
+          <Name>08 VLAN</Name>
+          <TextColorString>#82AAFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -518,8 +1037,8 @@
           <ID>a08b22f8-f08c-4b44-9b4e-20d23df7432f</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\bvrf(?:\s+\S+)?\b|\b[IM]?VRFs?\b|\bL[23]VPN\b|\bVPN Routing/Forwarding\b|\bMgmt-vrf\b</Keyword>
-          <Name>07 VRF</Name>
+          <Keyword>(?i)\bvrf\b(?:[ ](?:forwarding|member|context|definition))?(?:[ ][^\s,]+)?|\b[IM]?VRFs?\b|\bL[23]VPN\b|\bVPN Routing/Forwarding\b|\bMgmt-vrf\b</Keyword>
+          <Name>08 VRF</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -529,8 +1048,8 @@
           <ID>b2757065-7166-4278-8510-142bc10f73e3</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:remote-as|local-as|autonomous-system|AS)\s+\d{1,10}\b|\bAS\d{1,10}\b|\bbgp\s+\d{1,10}\b</Keyword>
-          <Name>07 AS numbers</Name>
+          <Keyword>(?i)\b(?:remote-as|local-as|autonomous-system|AS)\s+\d{1,10}(?:\.\d{1,5})?(?!\.?\d)|\bAS\d{1,10}\b|\bbgp\s+\d{1,10}(?:\.\d{1,5})?(?!\.?\d)</Keyword>
+          <Name>08 AS numbers</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -540,8 +1059,19 @@
           <ID>a7abcc4f-158d-489c-96da-3d8e4b48e889</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:RT|RD|Route Distinguisher|Route Target)\s*:?\s*\d{1,10}:\d{1,10}\b|\bRT:\d{1,3}(?:\.\d{1,3}){3}:\d{1,5}\b|\b\d{1,10}:\d{1,10}(?=\s|$)</Keyword>
-          <Name>07 Route targets and RDs</Name>
+          <Keyword>(?i)\b(?:RD|RT|route-target(?:\s+(?:import|export|both))?|Route Distinguisher)\s*:?\s*(?:\d{1,10}(?:\.\d{1,5})?|\d{1,3}(?:\.\d{1,3}){3}):\d{1,10}\b</Keyword>
+          <Name>08 Route targets and RDs</Name>
+          <TextColorString>#FFA657</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>ab63bf98-ed37-5435-ac2a-a2153691deb4</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)(?&lt;=\bCommunity:?\s.*)\b\d{1,10}:\d{1,5}\b</Keyword>
+          <Name>08 BGP communities</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -552,7 +1082,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:L[23]VNI|VNI|VN-Segment|Vxlan-\d+)\b|\b(?:vni)\s+\d{1,8}\b</Keyword>
-          <Name>07 VNI and VXLAN identifiers</Name>
+          <Name>08 VNI and VXLAN identifiers</Name>
           <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -560,10 +1090,11 @@
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
           <ID>91b3e86f-2234-4827-8d9a-71d0113e0498</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>\bCSC[a-z]{2}\d{5}\b|\bCVE-\d{4}-\d{4,7}\b</Keyword>
-          <Name>07 Cisco bug and CVE IDs</Name>
+          <Name>08 Cisco bug and CVE IDs</Name>
           <TextColorString>#7FD1E8</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -573,8 +1104,8 @@
           <ID>2861cbd3-1452-452d-a585-1764d32ccaf4</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:[ei]?bgp|bgp-\d{1,5}|route[- ]reflector(?:[- ]client)?|RR-client|cluster[- ]id|cluster list|originator|best-?path|local-?pref(?:erence)?|LocPrf|MED|metric|weight|as-path|aspath|atomic-aggregate|aggregate|confed(?:eration|-external|-internal)|peer-group|next_hop|next-hop-self|soft-reconfiguration|soo|vpnv[46]|L2VPN EVPN|prefix(?:es)? received|maximum-prefix)\b|\*[&gt;=|][eil]?|\bIdle\b|\bOpenSent\b|\bOpenConfirm\b</Keyword>
-          <Name>08 BGP</Name>
+          <Keyword>(?i)\b(?:[ei]?bgp|bgp-\d{1,5}|route[- ]reflector(?:[- ]client)?|RR-client|cluster[- ]id|cluster list|originator|best-?path|local-?pref(?:erence)?|LocPrf|MED|metric|weight|as-path|aspath|atomic-aggregate|aggregate|confed(?:eration|-external|-internal)|peer-group|next_hop|next-hop-self|soft-reconfiguration|soo|vpnv[46]|L2VPN EVPN|prefix(?:es)? received|maximum-prefix)\b|\*[&gt;=|][eil]?</Keyword>
+          <Name>09 BGP</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -585,7 +1116,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:IGP|EGP|incomplete)\b|\? - incomplete</Keyword>
-          <Name>08 BGP origin codes</Name>
+          <Name>09 BGP origin codes</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -595,8 +1126,8 @@
           <ID>e396f26e-ffc6-49ef-b38a-b0e529baff09</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\bospf(?:v[23])?\b|\b(?:DROTHER|DROTH|BDR|DR|ABR|ASBR|NSSA|totally stubby|stub|virtual-link|sham-link|LSA|LSDB|SPF|area\s+(?:\d+|\d{1,3}(?:\.\d{1,3}){3})|type-[1-7] LSA|E[12]|N[12]|IA|O IA|P2P|P2MP|reference-bandwidth|router-id)\b</Keyword>
-          <Name>08 OSPF</Name>
+          <Keyword>(?i)\bospf(?:v[23])?\b|\b(?:DROTHER|DROTH|BDR|DR|ABR|ASBR|NSSA|totally stubby|stub|virtual-link|sham-link|LSA|LSDB|SPF|area\s+(?:\d{1,3}(?:\.\d{1,3}){3}|\d+)|type-[1-7] LSA|E[12]|N[12]|IA|O IA|reference-bandwidth|router-id)\b</Keyword>
+          <Name>09 OSPF</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -607,7 +1138,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\bis-?is\b|\bCLNS\b|\bNET\s+\d{2}\.\b|\b(?:level-1-2|level-[12]|L1L2|L1|L2)\b|\b(?:wide|narrow) metric\b</Keyword>
-          <Name>08 IS-IS</Name>
+          <Name>09 IS-IS</Name>
           <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -617,8 +1148,8 @@
           <ID>1e9b8899-97f0-4f87-b649-adea29cb773f</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\beigrp(?:-(?:ipv[46]|sfv[46]))?\b|\bDUAL\b|\b(?:feasible distance|FD is|reported distance|RD is|successor|feasible successor|stuck-in-active|K\d=\d|variance|topology table)\b</Keyword>
-          <Name>08 EIGRP</Name>
+          <Keyword>(?i)\beigrp(?:-(?:ipv[46]|sfv[46]))?\b|\b(?:feasible distance|FD is|reported distance|RD is|successor|feasible successor|stuck-in-active|K\d=\d|variance|topology table)\b</Keyword>
+          <Name>09 EIGRP</Name>
           <TextColorString>#5FD7AF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -629,7 +1160,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\brip(?:v[12]|ng)?\b|\bDistance:\s*\(default is 120\)</Keyword>
-          <Name>08 RIP</Name>
+          <Name>09 RIP</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -640,7 +1171,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:directly connected|is directly connected|ip route|ipv6 route|static route|administrative distance|admin distance)\b</Keyword>
-          <Name>08 Static and connected</Name>
+          <Name>09 Static and connected</Name>
           <TextColorString>#8A9199</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -648,10 +1179,11 @@
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
           <ID>2f5a56a8-fb22-434f-bc82-d295a6a8ea3e</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>\[\d{1,3}/\d{1,10}\]|\(\d{1,10}/\d{1,10}\)|\[\d{1,3}/L[12]/\d{1,9}\]</Keyword>
-          <Name>08 Route metrics</Name>
+          <Name>09 Route metrics</Name>
           <TextColorString>#7FD1E8</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -662,8 +1194,8 @@
           <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?m)^(?:[A-Z]\*?(?:\s+[A-Z]{1,2})?)\s+(?=\d{1,3}\.)</Keyword>
-          <Name>08 Route codes column</Name>
+          <Keyword>(?m)^[A-Za-z+%]\*?(?:\s+(?:[A-Z][A-Z12]?|ia|su))?(?=\s+(?:\d{1,3}\.|[0-9A-Fa-f]{0,4}:))</Keyword>
+          <Name>09 Route codes column</Name>
           <TextColorString>#8A9199</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -674,7 +1206,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\bmpls\b|\bldp\b|\btdp\b|\blabel(?:s|-switched)?\b|\bimp(?:licit)?-?null\b|\bpop label\b|\blocal label\b|\bLIB\b|\bLFIB\b|\btag-switching\b</Keyword>
-          <Name>09 MPLS and LDP</Name>
+          <Name>10 MPLS and LDP</Name>
           <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -685,7 +1217,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\bsegment[- ]routing\b|\bSR-?MPLS\b|\bSRv6\b|\bSRGB\b|\bSRLB\b|\b(?:prefix|adjacency|node)-sid\b|\bSID\b|\bbinding[- ]sid\b</Keyword>
-          <Name>09 Segment routing</Name>
+          <Name>10 Segment routing</Name>
           <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -695,8 +1227,8 @@
           <ID>b12365e3-6c13-454d-b072-3e990fbae5df</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\bvxlan\b|\bevpn\b|\bNVE\b|\bIMET\b|\bESI\b|\bBUM\b|\bMAC/IP\b|\banycast gateway\b|\bType-[2356]\b|\[[2-5]\]:\[\d+\]:\[\d+\]:\[\d{1,3}\]</Keyword>
-          <Name>09 VXLAN EVPN</Name>
+          <Keyword>(?i)\bvxlan\b|\bevpn\b|\bNVE\b|\bIMET\b|\bESI\b|\bBUM\b|\bMAC/IP\b|\banycast gateway\b|\bType-[2356]\b(?!\s+(?:in)?consisten)|\[[1-5]\]:\[\d+\]:\[\d+\]:\[\d{1,3}\]</Keyword>
+          <Name>10 VXLAN EVPN</Name>
           <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -707,7 +1239,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\bnhrp\b|\bDMVPN\b|\bm?GRE(?:/IPv?6?)?\b|\bNBMA\b|\bNext Hop (?:Client|Peer|Server)\b|\bIPsec tunnel\b</Keyword>
-          <Name>09 DMVPN NHRP GRE</Name>
+          <Name>10 DMVPN NHRP GRE</Name>
           <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -718,7 +1250,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\bOMP\b|\bTLOC\b|\bvSmart\b|\bvBond\b|\bvManage\b|\bvEdge\b|\bcEdge\b|\bcontrol connections?\b|\bBFD sessions?\b|\bSDWAN\b</Keyword>
-          <Name>09 SD-WAN</Name>
+          <Name>10 SD-WAN</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -729,7 +1261,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\bOTV\b|\bLISP\b|\b(?:P|Proxy-)?[EI]TR\b|\bmap-(?:server|resolver|cache|reply)\b|\bFabricPath\b|\bdynamic-EID\b</Keyword>
-          <Name>09 OTV LISP FabricPath</Name>
+          <Name>10 OTV LISP FabricPath</Name>
           <TextColorString>#D19AFF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -739,8 +1271,8 @@
           <ID>ed2081dd-10f3-4b53-ad00-62c9e7cedfa2</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\bhsrp\b|\bvrrp\b|\bglbp\b|\bstandby\s+\d+\b|\bpreempt\b|\bvirtual (?:IP|MAC)\b|\bAVG\b|\bAVF\b</Keyword>
-          <Name>10 FHRP</Name>
+          <Keyword>(?i)\bhsrp\b|\bvrrp\b|\bglbp\b|\bstandby\s+(?:\d+|version\s+\d)\b|\bpreempt\b|\bvirtual (?:IP|MAC)\b|(?&lt;!/)\bAV[GF]\b(?!/)</Keyword>
+          <Name>11 FHRP</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -751,7 +1283,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:spanning-tree|rapid-pvst|rpvst|pvst|mst(?:p|\s?\d{1,4})?|rstp|ieee|CIST|BPDU(?:guard|filter)?|root (?:bridge|port|guard|primary|secondary)|designated|alternate|backbone ?fast|uplink ?fast|portfast|loopguard|topology change)\b</Keyword>
-          <Name>10 Spanning tree</Name>
+          <Name>11 Spanning tree</Name>
           <TextColorString>#B4A0FF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -762,7 +1294,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:cdp|lldp|udld|vtp|dtp|lacp|pagp|etherchannel|port-channel load-balance|trunk(?:ing)?|dot1q|802\.1q|isl|access vlan|switchport)\b</Keyword>
-          <Name>10 L2 and discovery protocols</Name>
+          <Name>11 L2 and discovery protocols</Name>
           <TextColorString>#B4A0FF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -772,8 +1304,8 @@
           <ID>59e528ba-6f64-4239-acb7-da8e4799065d</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:pim(?:-sm|-ssm|-bidir|v2)?|msdp|igmp(?:v[123]|\s+snooping)?|mld|rendezvous point|RP\b|BSR|bootstrap|mroute|mcast|multicast|\(\*,\s?\d{1,3}\.|SPT|RPF|prune(?:d)?|join|sparse-mode|dense-mode)\b</Keyword>
-          <Name>10 Multicast</Name>
+          <Keyword>(?i)\b(?:pim(?:-sm|-ssm|-bidir|v2)?|msdp|igmp(?:v[123]|\s+snooping)?|mld|rendezvous point|BSR|mroute|mcast|multicast|SPT|RPF|prune(?:d)?|join|sparse-mode|dense-mode)\b|\bRP(?:\s+address|:\s*\d)|\(\*,\s?\d{1,3}(?:\.\d{1,3}){3}\)|\((?:\d{1,3}\.){3}\d{1,3},\s?\d{1,3}(?:\.\d{1,3}){3}\)</Keyword>
+          <Name>11 Multicast</Name>
           <TextColorString>#FF79C6</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -783,8 +1315,8 @@
           <ID>5e6b072b-e17b-4fee-baec-5337d4621181</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\bvpc\b|\bpeer-link\b|\bpeer-keepalive\b|\bpeer-gateway\b|\bpeer-switch\b|\borphan(?:ed)?(?:[- ]ports?)?\b|\bconsistency (?:check|parameters?|status)\b|\bType-[12] (?:in)?consisten\w*\b|\bdual active\b</Keyword>
-          <Name>11 vPC</Name>
+          <Keyword>(?i)\bvpc\b|\bpeer-link\b|\bpeer-keepalive\b|\bpeer-gateway\b|\bpeer-switch\b|\borphan(?:ed)?(?:[- ]ports?)?\b|\bconsistency (?:check|parameters?|status)\b|\bType-[12] (?:in)?consisten\w*\b|\bdual[- ]active\b</Keyword>
+          <Name>12 vPC</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -794,8 +1326,8 @@
           <ID>3c34fde8-5d67-4cfe-bfe5-060bedbad37b</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:VDC|FEX|fabric extender|CFSoE|CoPP|feature\s+\S+|port-profile|role network-(?:admin|operator)|checkpoint|N[3579]K)\b</Keyword>
-          <Name>11 NX-OS platform</Name>
+          <Keyword>(?i)\b(?:VDC|FEX|fabric extender|CFSoE|CoPP|feature\s+\S+|port-profile|role network-(?:admin|operator)|checkpoint)\b|\bN[3579]K\b(?!-)</Keyword>
+          <Name>12 NX-OS platform</Name>
           <TextColorString>#B4A0FF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -805,9 +1337,53 @@
           <ID>c2da0c57-4e1e-4aec-9284-c342dabcd51a</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:StackWise(?:\s+Virtual)?|VSS|virtual switch(?:ing system)?|SSO|RPR|ISSU|supervisor|standby hot|redundancy state|switchover|split[- ]brain)\b</Keyword>
-          <Name>11 Stacking and chassis redundancy</Name>
+          <Keyword>(?i)\b(?:StackWise(?:\s+Virtual)?|VSS|virtual switch(?:ing system)?|SSO|RPR|ISSU|redundancy state|switchover|split[- ]brain)\b</Keyword>
+          <Name>12 Stacking and chassis redundancy</Name>
           <TextColorString>#B4A0FF</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>61a607dc-7cad-58e0-bc76-5f910156b48a</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?im)^\s*(?:key|server-key|key-string)\s+(?!\d+\s*$)(?![0-9]\s)\S+|\bserver-key\s+(?![0-9]\s)\S+</Keyword>
+          <Name>13 Plaintext keys</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>ca658e2e-d7e5-565f-9374-475e0e05d0f9</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:password|key|key-string)\s+[07]\s+\S+|\benable password\b|\bsnmp-server community\s+\S+\s+RW\b|\bsnmp-server community\s+(?:public|private)\b</Keyword>
+          <Name>13 Reversible credentials</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>0687507b-721f-5e29-a422-7eeb5424d62f</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bsecret\s+5\s+\S+</Keyword>
+          <Name>13 MD5 secret</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>503c0477-276a-4d97-a5a6-d424052a33a6</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)(?&lt;!\bno\s+(?:ip\s+)?(?:service\s+)?)\b(?:telnet|des|des56|3des|md5|sha1|group [125]|http server|transport input (?:telnet|all)|ip ssh version 1|hash (?:md5|sha)|encryption (?:des|3des)|service (?:tcp|udp)-small-servers|ip source-route)\b|\bno service password-encryption\b|(?&lt;=\bsnmp-server host \S+ )(?:version )?(?:1|2c)\b</Keyword>
+          <Name>13 Weak crypto and cleartext</Name>
+          <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -817,7 +1393,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:username|password|secret|passphrase|pre-shared-key|shared secret|key-string|key-chain|snmp-server community|enable secret|enable password)\b(?:\s+\S+)?</Keyword>
-          <Name>12 Credentials</Name>
+          <Name>13 Credentials</Name>
           <TextColorString>#FF92D0</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -827,20 +1403,9 @@
           <ID>f11435f5-8416-494b-809e-2a703a2e2c4f</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:crypto|isakmp|ikev[12]|ipsec|esp|transform-set|dh group|diffie|sa (?:lifetime|established)|aes(?:-\d{3})?|3des|des56|md5|sha(?:1|2|256|384|512)?|hmac|certificate|trustpoint|PKI|CA\b|rsa|ecdsa|tls|ssl|dtls|anyconnect|sslvpn|l2tp|dpd|rekey|child sa)\b</Keyword>
-          <Name>12 Crypto and VPN</Name>
+          <Keyword>(?i)\b(?:crypto|isakmp|ikev[12]|ipsec|esp|transform-set|dh group|diffie|sa (?:lifetime|established)|aes(?:-\d{3})?|3des|des56|md5|sha(?:1|2|256|384|512)?|hmac|certificate|trustpoint|PKI|rsa|ecdsa|tls|ssl|dtls|anyconnect|sslvpn|l2tp|dpd|rekey|child sa)\b</Keyword>
+          <Name>13 Crypto and VPN</Name>
           <TextColorString>#FF92D0</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>503c0477-276a-4d97-a5a6-d424052a33a6</ID>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:telnet|des\b|des56|3des|md5|sha1|group 1\b|group 2\b|group 5\b|http server|snmp v?[12]c?|no service password-encryption|password 0\s)\b</Keyword>
-          <Name>12 Weak crypto and cleartext</Name>
-          <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -850,7 +1415,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\baaa\b|\b(?:tacacs\+?|radius)\b|\bauthentication\b|\bauthorization\b|\baccounting\b|\bdot1x\b|\bmab\b|\bauthmgr\b|\bport-security\b</Keyword>
-          <Name>12 AAA</Name>
+          <Name>13 AAA</Name>
           <TextColorString>#B4A0FF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -861,7 +1426,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\baccess-(?:lists?|class|group)\b|\bACL\b|\bip access-list\b|\bprefix-list\b|\broute-map\b|\bobject-group\b|\btime-range\b|\bclass-map\b|\bpolicy-map\b|\bservice-policy\b|\bmatch ip address\b</Keyword>
-          <Name>12 Access lists and filters</Name>
+          <Name>13 Access lists and filters</Name>
           <TextColorString>#FFA657</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -869,11 +1434,23 @@
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
           <ID>bbc878b6-7dd5-4271-9e75-abb02552cf51</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>\(hitcnt=[1-9][0-9]*\)|\(\d*[1-9]\d* matches\)</Keyword>
-          <Name>12 ACL hit count non-zero</Name>
+          <Keyword>\(hitcnt=[1-9][0-9]*\)|\(\d*[1-9]\d* matches\)|\[match=[1-9]\d*\]</Keyword>
+          <Name>13 ACL hit count non-zero</Name>
           <TextColorString>#FFA657</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>4f6537dc-a1cf-5eb3-88b3-ef6c69ed507f</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:tftp|ftp|scp|sftp|https?)://\S+</Keyword>
+          <Name>14 URL paths</Name>
+          <TextColorString>#B5CEA8</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -883,7 +1460,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:dscp|cos\b|exp\b|qos-group|traffic-shape|shaping|polic(?:e|er|ing)|bandwidth percent|priority queue|wred|queue-limit|mls qos|cbwfq|llq)\b</Keyword>
-          <Name>13 QoS</Name>
+          <Name>14 QoS</Name>
           <TextColorString>#B4A0FF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -893,8 +1470,8 @@
           <ID>d36c65ea-3a3d-49e0-8928-502cab921428</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:dhcp(?:v6|-snooping)?|dns|ntp|snmp(?:-server)?|syslog|logging|netflow|sflow|ssh|scp|sftp|tftp|ftp|http|https|archive|ip sla|tacacs)\b</Keyword>
-          <Name>13 Infrastructure services</Name>
+          <Keyword>(?i)\b(?:dhcp(?:v6|-snooping)?|dns|ntp|snmp(?:-server)?|syslog|logging|netflow|sflow|ssh|scp|sftp|tftp|ftp|http|https|archive|ip sla)\b</Keyword>
+          <Name>14 Infrastructure services</Name>
           <TextColorString>#B4A0FF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -904,9 +1481,78 @@
           <ID>e74b6445-5278-457b-a516-0efa7f0986e3</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:tcp|udp|icmpv?6?|arp|nd\b|sctp|gre|ipip)\b</Keyword>
-          <Name>13 Transport protocols</Name>
+          <Keyword>(?i)\b(?:tcp|udp|icmpv?6?|arp|nd|sctp|ipip)\b</Keyword>
+          <Name>14 Transport protocols</Name>
           <TextColorString>#B4A0FF</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>ac337c0b-449a-5085-9052-d175aba4a632</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bstratum\s+16\b</Keyword>
+          <Name>14 NTP stratum 16</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>12bb2d21-4a91-57b9-adbb-862e3eb0c1a9</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\.(?:INIT|TIME|STEP|RATE|DENY|RSTR)\.</Keyword>
+          <Name>14 NTP kiss codes</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>78a09efb-635b-5c5f-b67a-830deffd001f</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)^\*~?(?=\d{1,3}\.\d)</Keyword>
+          <Name>14 NTP sys.peer</Name>
+          <TextColorString>#5CE68A</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>47a6ff92-b259-5173-99a4-47022ef71d8e</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)^x~?(?=\d{1,3}\.\d)</Keyword>
+          <Name>14 NTP falseticker</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>50fc38c8-a074-5347-ae3f-b6a37989ad3a</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bclock is unsynchronized\b</Keyword>
+          <Name>14 NTP unsynchronized</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>11b6e7d4-9467-5724-9e39-40ca15cc16a5</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\bclock is synchronized\b</Keyword>
+          <Name>14 NTP synchronized</Name>
+          <TextColorString>#5CE68A</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -915,8 +1561,8 @@
           <ID>5736f6b4-d507-4fd9-adba-5ef9424074fd</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\bstratum\s+\d+\b|\bclock is (?:synchronized|unsynchronized)\b|\breference clock\b</Keyword>
-          <Name>13 NTP stratum and sync</Name>
+          <Keyword>(?i)\bstratum\s+\d+\b|\breference clock\b</Keyword>
+          <Name>14 NTP stratum and reference</Name>
           <TextColorString>#B4A0FF</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -926,19 +1572,8 @@
           <ID>d6c0db57-2d14-4adb-a8f3-23b3872bbb42</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\bVersion\s+[\w.()]+|(?&lt;![\w.])\d{1,2}\.\d{1,2}\([0-9A-Za-z]+\)[\w.]*|(?&lt;![\w.])\d{1,2}\.\d{1,2}\.\d{1,2}[A-Za-z]{0,2}(?![.\d])|\bIOS[- ]XE\b|\bNX-OS\b|\bIOS[- ]XR\b</Keyword>
-          <Name>14 Software version</Name>
-          <TextColorString>#B5CEA8</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>77aba936-bbcd-4564-80d3-6dc7c9c9a664</ID>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b[\w.\-]+\.(?:bin|pkg|tar|img|conf|SPA|smu|rpm|iso)\b|\b\S*-mz\.\S*\b|\bpackages\.conf\b</Keyword>
-          <Name>14 Image files</Name>
+          <Keyword>(?i)\bVersion\s+\d\w*[.(][\w.()]*|(?&lt;![\w.])\d{1,2}\.\d{1,2}\([0-9A-Za-z]+\)[\w.]*|(?&lt;![\w.])\d{1,2}\.\d{1,2}\.\d{1,2}[A-Za-z]{0,2}(?![.\d])|\bIOS[- ]XE\b|\bNX-OS\b|\bIOS[- ]XR\b</Keyword>
+          <Name>15 Software version</Name>
           <TextColorString>#B5CEA8</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -948,8 +1583,19 @@
           <ID>876c82ee-376d-41d9-beed-7b9c5da15e84</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:bootflash|flash|disk0|disk1|slot0|harddisk|nvram|usb0|volatile|system|logflash):[\w./\-]*</Keyword>
-          <Name>14 Filesystems and paths</Name>
+          <Keyword>(?i)\b(?:bootflash|flash|disk0|disk1|slot0|harddisk|nvram|usb0|volatile|system|logflash|crashinfo):[\w./\-]*</Keyword>
+          <Name>15 Filesystems and paths</Name>
+          <TextColorString>#B5CEA8</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>77aba936-bbcd-4564-80d3-6dc7c9c9a664</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b[\w.\-]+\.(?:bin|pkg|tar|img|conf|SPA|smu|rpm|iso)\b|\b\S*-mz\.\S*\b</Keyword>
+          <Name>15 Image files</Name>
           <TextColorString>#B5CEA8</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -957,10 +1603,34 @@
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
           <ID>ed486d15-1dd7-4fca-ba7d-6387b1085455</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:PID|VID|SN|S/N|serial number|Chassis Serial|Model number|DESCR|NAME)\s*[:=]?\s*\S*|\b[A-Z]{3}[0-9]{4}[A-Z0-9]{4}\b</Keyword>
-          <Name>14 Serial numbers and PIDs</Name>
+          <Keyword>\b(?:PID|VID|SN|S/N|DESCR|NAME):\s*(?:"[^"]*"|[^\s,]+)</Keyword>
+          <Name>15 Serial number labels</Name>
+          <TextColorString>#9CDCFE</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>b5859c77-46f9-52e2-99e9-a80bd01d8614</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:serial number|chassis serial|model number)\b(?:\s+is\s+|\s*[:=]\s*)\S+</Keyword>
+          <Name>15 Serial number long forms</Name>
+          <TextColorString>#9CDCFE</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>6a3a2a9a-a8e0-5f95-9045-a547776c3345</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>\b[A-Z]{3}\d{4}[A-Z0-9]{4}\b</Keyword>
+          <Name>15 Cisco serial numbers</Name>
           <TextColorString>#9CDCFE</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -971,18 +1641,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:supervisor|linecard|line card|fabric module|RSP|RP\d|FPGA|uplink module|power supply|fan tray|transceiver|module \d+)\b</Keyword>
-          <Name>14 Hardware components</Name>
-          <TextColorString>#9CDCFE</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>77bd8c51-ccbe-4cdb-9613-7820f7bea2d7</ID>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b(?:SFP\+?|QSFP(?:\+|28|56|-DD)?|X2|GBIC|CFP2?|DOM|LOS|LOF|Tx Power|Rx Power|laser bias|10GBase-\w+|1000Base-\w+|100GBase-\w+|OM[1-5]|9/125um|50/125um|62\.5/125um)\b</Keyword>
-          <Name>14 Optics</Name>
+          <Name>15 Hardware components</Name>
           <TextColorString>#9CDCFE</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -993,19 +1652,42 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?i)\b(?:Temperature|Voltage|Current|Bias Current|Tx Power|Rx Power)\s*[:=]?\s*-?\d+(?:\.\d+)?\s*(?:C|V|mA|dBm|mW)?\b</Keyword>
-          <Name>14 Optic and sensor readings</Name>
+          <Name>15 Optic and sensor readings</Name>
           <TextColorString>#9CDCFE</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
-          <ID>4de7f8f6-dc3f-49d8-b3cb-a3ccb6b20a87</ID>
+          <ID>77bd8c51-ccbe-4cdb-9613-7820f7bea2d7</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b\d+[ywdhms](?:\d+[ywdhms])+\b|\b\d{1,5}\s+(?:years?|weeks?|days?|hours?|minutes?|seconds?)\b|\buptime is\b|\b\d{1,4}d\d{2}h\b|\b\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?\b</Keyword>
-          <Name>15 Uptime</Name>
-          <TextColorString>#8A9199</TextColorString>
+          <Keyword>(?i)\b(?:Q?SFP(?:\+|28|56|-DD)?|X2|GBIC|CFP2?|DOM)(?![\w+-])|\bTx Power\b|\bRx Power\b|\blaser bias\b|\b(?:10G|1000|100G)Base-\w+|\bOM[1-5]\b|\b(?:9|50|62\.5)/125um\b</Keyword>
+          <Name>15 Optics</Name>
+          <TextColorString>#9CDCFE</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>551987e2-285e-5dae-8f60-b0ca6ad13bd4</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:SFP|QSFP|GLC|CFP|CVR|QDD|XFP|DWDM)-[\w-]+</Keyword>
+          <Name>15 Optics PIDs</Name>
+          <TextColorString>#9CDCFE</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>2dc938f0-7c9c-554c-af15-09c37e695008</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)(?&lt;=^|^\d+:\s)[*.](?=(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s)</Keyword>
+          <Name>16 Unsynced clock marker</Name>
+          <TextColorString>#F2C55C</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -1015,8 +1697,19 @@
           <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?\b|\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}(?:\.\d+)?\b</Keyword>
-          <Name>15 Timestamps</Name>
+          <Keyword>\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?\b|\b(?:\d{4}\s+)?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}(?:\.\d+)?\b|\b\d{2}:\d{2}:\d{2}(?:\.\d+)?\s+[A-Z]{3,4}\s+(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+\d{4}\b</Keyword>
+          <Name>16 Timestamps</Name>
+          <TextColorString>#8A9199</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>4de7f8f6-dc3f-49d8-b3cb-a3ccb6b20a87</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b\d+[ywdhms](?:\d+[ywdhms])+\b|\b\d{1,5}\s+(?:years?|weeks?|days?|hours?|minutes?|seconds?)\b|\buptime is\b|\b\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?\b</Keyword>
+          <Name>16 Uptime</Name>
           <TextColorString>#8A9199</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -1026,20 +1719,20 @@
           <ID>935480a8-0e79-4cdc-befb-56f8edb6afc7</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\b\d[\d,.]*\s*(?:[KMGT]?(?:bits?|bytes?|B|b)(?:/s|ps|/sec)?|packets?/sec|pps|kbps|mbps|gbps)\b|\b(?:MTU|BW|DLY|bandwidth|txload|rxload|reliability)\b</Keyword>
-          <Name>15 Rates and sizes</Name>
+          <Keyword>(?i)(?&lt;![\w:.])\d[\d,.]*\s?(?:[KMGT]?(?:bits?|bytes?|B|b)(?:/s|ps|/sec)?|packets?/sec|pps|kbps|mbps|gbps)\b|\b(?:MTU|BW|DLY|bandwidth|txload|rxload|reliability)\b</Keyword>
+          <Name>16 Rates and sizes</Name>
           <TextColorString>#7FD1E8</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
+          <BackColorString>#3A2E00</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
           <ID>a5c75b9b-3f15-435e-b6d0-2a6b1ad127b7</ID>
           <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?m)^\S+\((?:config|conf|ca-trustpoint|cfg)[^)]*\)#\s*$</Keyword>
-          <Name>16 Config mode prompt</Name>
+          <Keyword>(?m)^\S+?\((?:conf|cfg|ca-trustpoint)[^)]*\)#</Keyword>
+          <Name>17 Config mode prompt</Name>
           <TextColorString>#F2C55C</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -1050,8 +1743,8 @@
           <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?m)^[^\s()&gt;#]+#\s*$</Keyword>
-          <Name>16 Enable prompt</Name>
+          <Keyword>(?m)^[A-Za-z][^\s()&lt;&gt;#\[]*#(?=\s?\S|\s*$)</Keyword>
+          <Name>17 Enable prompt</Name>
           <TextColorString>#5CE68A</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -1062,9 +1755,21 @@
           <IsCaseSensitive>true</IsCaseSensitive>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?m)^[^\s()&gt;#]+&gt;\s*$</Keyword>
-          <Name>16 User exec prompt</Name>
+          <Keyword>(?m)^[A-Za-z][^\s()&lt;&gt;#\[]*&gt;(?=\s?\S|\s*$)</Keyword>
+          <Name>17 User exec prompt</Name>
           <TextColorString>#8A9199</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>aefcbde8-d751-587e-8b87-0b9e94c068f6</ID>
+          <IsCaseSensitive>true</IsCaseSensitive>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?m)^(?:rommon\s+\d+\s*&gt;|switch:|loader&gt;)</Keyword>
+          <Name>17 Bootloader prompt</Name>
+          <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
@@ -1074,7 +1779,7 @@
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
           <Keyword>(?im)^\s*hostname\s+\S+|\bswitchname\s+\S+</Keyword>
-          <Name>16 Hostname</Name>
+          <Name>17 Hostname</Name>
           <TextColorString>#7FD1E8</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -1084,8 +1789,8 @@
           <ID>1779ef7a-fc63-4895-aa2a-d1dc16dfe084</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?i)\[confirm\]|\(yes/no\)\s*[:?]|\[yes/no\]:|\[y/n\]|--\s*More\s*--|&lt;---\s*More\s*---&gt;|Destination filename|Press RETURN</Keyword>
-          <Name>16 Interactive prompts</Name>
+          <Keyword>(?i)\[confirm\]|\(yes/no\)\s*[:?]|\[yes/no\]:|\[(?:yes|no)\]:|\[y/n\]|\(y/n\)|--\s*More\s*--|&lt;---\s*More\s*---&gt;|Destination filename|Press RETURN|Proceed with reload\?</Keyword>
+          <Name>17 Interactive prompts</Name>
           <TextColorString>#7FD1E8</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -1095,30 +1800,8 @@
           <ID>6ce36bfb-b7d9-443e-85c6-f73555c1b386</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?im)^\s*!+\s*$|^\s*\.+\s*$|\[#+\]|\bBuilding configuration\.\.\.|\bcompressed configuration\b|\bOK\]$</Keyword>
-          <Name>16 Progress indicators</Name>
-          <TextColorString>#8A9199</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>389c2452-f457-4c9c-9ab0-bd80ad6dcaa8</ID>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>(?im)^\s*!.*$|\bremark\b|^\s*#{2,}.*$</Keyword>
-          <Name>16 Config comments and banners</Name>
-          <TextColorString>#6FA96F</TextColorString>
-        </SyntaxHighlightingItem>
-        <SyntaxHighlightingItem>
-          <BackColorString>#000000</BackColorString>
-          <BackgroundColor>Custom</BackgroundColor>
-          <ForegroundColor>Custom</ForegroundColor>
-          <ID>b975363b-f582-4b2a-bb84-6525e52fae39</ID>
-          <IsCompleteWord>false</IsCompleteWord>
-          <IsRegex>true</IsRegex>
-          <Keyword>(?im)^\s*description\s+.*$|\bdescription\s+.*</Keyword>
-          <Name>16 Descriptions</Name>
+          <Keyword>(?im)^\s*!+\s*$|^\s*\.+\s*$|\[#+\]|\bBuilding configuration\.\.\.|\bcompressed configuration\b|\[OK\](?=\s*$)</Keyword>
+          <Name>17 Progress indicators</Name>
           <TextColorString>#8A9199</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
@@ -1128,21 +1811,53 @@
           <ID>fc8e5201-174a-4eb5-9327-f5e09b50cb6d</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?im)^\s*\^\s*$|% Invalid input detected|% Incomplete command|% Ambiguous command|% Bad (?:mask|IP address)|% Permission denied|% Unknown command</Keyword>
-          <Name>16 Invalid input caret</Name>
+          <Keyword>(?im)^\s*\^\s*$|% Invalid input detected|% Incomplete command|% Ambiguous command|% Bad (?:mask|IP address)|% Permission denied|% Unknown command|% Invalid (?:command|parameter|number|range|value)\b.*|% Authorization failed|Command authorization failed|% Command rejected|% Unrecognized command|%\s?Error\b.*</Keyword>
+          <Name>17 Invalid input caret</Name>
           <TextColorString>#FF5555</TextColorString>
         </SyntaxHighlightingItem>
         <SyntaxHighlightingItem>
           <BackColorString>#000000</BackColorString>
           <BackgroundColor>Custom</BackgroundColor>
           <ForegroundColor>Custom</ForegroundColor>
-          <ID>ccc1febd-e835-4367-9c76-6ce9a88fc0f1</ID>
-          <IsCaseSensitive>true</IsCaseSensitive>
+          <ID>6cafbdd6-e751-4572-bca9-fc09235ade69</ID>
           <IsCompleteWord>false</IsCompleteWord>
           <IsRegex>true</IsRegex>
-          <Keyword>(?m)^\s*(?:Interface\s+IP-Address|Device ID\s+Local Int|Neighbor\s+V\s+AS|Port\s+Name\s+Status|Vlan\s+Mac Address|Mac Address\s+Type|Destination\s+Gateway|Protocol\s+Address\s+Age|Address\s+Age\(min\)|Codes:|Origin codes:|Network\s+Next Hop|H\s+Address\s+Interface|Po\s+Ports|Gateway of last resort).*$</Keyword>
-          <Name>16 Table headers</Name>
-          <TextColorString>#8A9199</TextColorString>
+          <Keyword>(?i)\b(?:line protocol is down|protocol is down|is down|link down|down/down|up/down|err-?disabl\w*|notconnec\w*|not connected|sfpAbsent|xcvrAbsen\w*|noOperMem\w*|suspnd|linkFlapE\w*|channelDo\w*|faulty|deleted|removed|suspended|inactive|unusable|BLK|blocked|dampened)\b</Keyword>
+          <Name>18 Down states</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>c2b04ec0-924e-4322-84c4-e8e869ea9c84</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:fail(?:s|ed|ing|ure|ures)?|errors?|invalid|denied|deny|reject(?:ed|s)?|refused|unreachable|unauthori[sz]ed|forbidden|cannot|unable|abort(?:ed)?|exception|traceback|crash(?:ed)?|corrupt(?:ed)?|timeout|missing|offline|violation)\b</Keyword>
+          <Name>18 Failure vocabulary</Name>
+          <TextColorString>#FF5555</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>59de5845-323d-4c4d-8571-e6ac5295fe25</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:init(?:ializing)?|loading|negotiating|waiting|pending|attempt|exstart|exchange|2-?way|listen(?:ing)?|learning|blocking|connect|opensent|openconfirm|idle(?:\s*\(admin\))?|standby|speak|resync(?:ing)?|reload(?:ing)?|booting|synchroni[sz]ing|not synchronized|unsynchronized|half[- ]duplex|a-half|degraded|mismatch(?:ed)?|inconsistent|flapping|deprecated|warning|caution|throttled)\b</Keyword>
+          <Name>18 Transitional states</Name>
+          <TextColorString>#F2C55C</TextColorString>
+        </SyntaxHighlightingItem>
+        <SyntaxHighlightingItem>
+          <BackColorString>#000000</BackColorString>
+          <BackgroundColor>Custom</BackgroundColor>
+          <ForegroundColor>Custom</ForegroundColor>
+          <ID>41e76696-a1ed-49e1-b13a-38c4e7e0aa61</ID>
+          <IsCompleteWord>false</IsCompleteWord>
+          <IsRegex>true</IsRegex>
+          <Keyword>(?i)\b(?:is up|line protocol is up|protocol is up|link up|up/up|connected|forwarding|established|estab|reachable|alive|online|operational|synchronized|enabled|permit(?:ted)?|allowed|success(?:ful|fully)?|succeeded|passed|complete(?:d)?|valid|installed|ready|authorized|authenticated|full[- ]duplex|a-full|is ok|active|master|primary)\b|\[OK\]</Keyword>
+          <Name>18 Up and healthy states</Name>
+          <TextColorString>#5CE68A</TextColorString>
         </SyntaxHighlightingItem>
       </SyntaxHighlightingItemArray>
     </SyntaxHighlightingProfile>
